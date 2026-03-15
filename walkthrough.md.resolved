@@ -1,0 +1,38 @@
+# IlyWear E-Commerce Project Walkthrough
+
+The IlyWear Next.js e-commerce application has been successfully built according to the requirements.
+
+## What was built
+
+We have manually set up a robust Next.js 14 App Router application with Tailwind CSS, TypeScript, and ESLint, focusing on performance, modern UI, and mobile-first design. 
+
+The application architecture includes:
+
+1. **Brand Aesthetics**: The required styling (Black, White, Accent Gold/Beige) was implemented natively alongside modern spacing and typography standards. Custom animations (`animate-slide-down`, `animate-fade-in`) were added to the Tailwind config.
+2. **Global Components**: 
+   - [Header.tsx](file:///c:/Users/hp/Desktop/IlyWear/src/components/Header.tsx): A sticky navigation bar with a responsive mobile menu and integrated search.
+   - [Footer.tsx](file:///c:/Users/hp/Desktop/IlyWear/src/components/Footer.tsx): A comprehensive footer with social links, categorized sitemap, and quick contact details.
+   - [ProductCard.tsx](file:///c:/Users/hp/Desktop/IlyWear/src/components/ProductCard.tsx): Reusable cards displaying product images, prices in MAD, categories, and direct integration with the "Order on WhatsApp" functionality.
+   - [SkeletonCard.tsx](file:///c:/Users/hp/Desktop/IlyWear/src/components/SkeletonCard.tsx): Visual loading placeholders for when product API data is fetching.
+   - [SearchBar.tsx](file:///c:/Users/hp/Desktop/IlyWear/src/components/SearchBar.tsx): Client-side interactivity for searching products directly.
+3. **API Integration ([src/services/products.ts](file:///c:/Users/hp/Desktop/IlyWear/src/services/products.ts))**: Designed to securely pass the affiliate API key `BOUT_qSnliOWKqflJWvzMQSrItXMxT3oeBkmv`. In the absence of a real endpoint, the service elegantly falls back to mapped mock data with Moroccan Dirham (MAD) pricing and men/women categorizations, ready to be hot-swapped with the real endpoint URL.
+4. **App Pages**:
+   - [app/page.tsx](file:///c:/Users/hp/Desktop/IlyWear/src/app/page.tsx): The home page featuring a massive Hero Banner, Categories sections (Men/Women), Featured Products grid, and a Promotions CTA.
+   - [app/shop/page.tsx](file:///c:/Users/hp/Desktop/IlyWear/src/app/shop/page.tsx): Dynamic product grid with filtering capabilities based on URL parameters (`?category=women`, `?q=shoes`). Validates and queries the service on the server-side, returning SEO-friendly SSR pages.
+   - `app/product/[id]/page.tsx`: A gorgeous detail page providing a larger product view, enriched descriptions, and the direct WhatsApp ordering mechanism.
+
+### Previews
+![Home Page](/C:/Users/hp/.gemini/antigravity/brain/3bad90fa-3ea7-4596-9f35-2637ab2133bd/home_page_top_1772892532510.png)
+![Shop Page](/C:/Users/hp/.gemini/antigravity/brain/3bad90fa-3ea7-4596-9f35-2637ab2133bd/shop_page_1772892585143.png)
+
+## WhatsApp Integration Validation
+
+When a user clicks "Order on WhatsApp", the link is formulated effectively:
+`https://wa.me/212600000000?text=Hello%20I%20want%20to%20order...`
+This automatically opens WhatsApp with the dynamically parsed message containing the Product Name, Price, and ID, bypassing traditional cart checkout seamlessly as requested.
+
+## Next Steps for the User
+
+1. Navigate to your project folder: `cd Desktop/IlyWear`
+2. Run the development server: `npm run dev`
+3. View the fully responsive, fully animated application in your browser at `http://localhost:3000`.
