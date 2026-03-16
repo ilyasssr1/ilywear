@@ -87,7 +87,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-12">
+          <nav className="hidden lg:flex items-center space-x-12">
             <Link href="/" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-all hover:translate-y-[-1px]">{t('home')}</Link>
             <Link href="/shop" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-all hover:translate-y-[-1px]">{t('shop')}</Link>
             <Link href="/about" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-all hover:translate-y-[-1px]">{t('about')}</Link>
@@ -103,7 +103,7 @@ export default function Header() {
             <SearchBar />
 
             {/* Language Switcher */}
-            <div className="hidden md:flex items-center gap-2 bg-gray-50 p-1 rounded-xl border border-gray-100">
+            <div className="hidden lg:flex items-center gap-2 bg-gray-50 p-1 rounded-xl border border-gray-100">
               {(['en', 'ar', 'fr'] as const).map((lang) => (
                 <button
                   key={lang}
@@ -118,19 +118,24 @@ export default function Header() {
             </div>
 
             <div className="relative group">
-              <Link
-                href={user ? "/admin" : "/login"}
-                className="text-primary hover:text-accent p-2.5 transition-all flex items-center gap-2"
-                aria-label="User Profile"
-              >
-                {user ? (
+              {user ? (
+                <button
+                  className="text-primary hover:text-accent p-2.5 transition-all flex items-center gap-2"
+                  aria-label="User Profile"
+                >
                   <div className="w-7 h-7 bg-black text-accent rounded-full flex items-center justify-center text-[10px] font-black border border-gray-100 shadow-sm group-hover:scale-110 transition-transform">
                     {user.email?.substring(0, 1).toUpperCase()}
                   </div>
-                ) : (
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  className="text-primary hover:text-accent p-2.5 transition-all flex items-center gap-2"
+                  aria-label="User Profile"
+                >
                   <User className="h-5 w-5" />
-                )}
-              </Link>
+                </Link>
+              )}
               
               {user && (
                 <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
@@ -183,7 +188,7 @@ export default function Header() {
             
             {/* Mobile Menu Toggle */}
             <button 
-              className="md:hidden text-primary p-2 focus:outline-none"
+              className="lg:hidden text-primary p-2 focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -196,7 +201,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full h-[calc(100vh_-_4rem)] bg-white z-50 animate-fade-in overflow-y-auto border-t border-gray-100 shadow-2xl">
+          <div className="lg:hidden absolute top-full left-0 w-full h-[calc(100vh_-_4rem)] bg-white z-50 animate-fade-in overflow-y-auto border-t border-gray-100 shadow-2xl">
             <nav className="flex flex-col p-8 space-y-8 h-full bg-white">
               {['Home', 'Shop', 'Women', 'Men', 'Track Order', 'Promotions'].map((item, i) => (
                 <Link 
