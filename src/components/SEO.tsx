@@ -19,7 +19,7 @@ export function SEO({
   type = "website",
   author = "IlyWear",
 }: SEOProps) {
-  const fullUrl = url ? `https://ilywear.com${url}` : "https://ilywear.com";
+  const fullUrl = url ? `https://ilywear.shop${url}` : "https://ilywear.shop";
 
   return (
     <Head>

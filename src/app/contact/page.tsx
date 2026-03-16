@@ -1,16 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Mail, Phone, MapPin, Send, MessageCircle, Instagram, Globe } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '@/context/ToastContext';
+import { fetchSettings, SiteSettings } from '@/services/settings';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
   const { showToast } = useToast();
+
+  useEffect(() => {
+    async function getSettings() {
+      const data = await fetchSettings();
+      if (data) setSettings(data);
+    }
+    getSettings();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,13 +61,18 @@ export default function ContactPage() {
               <div className="bg-[#FBFBFB] border border-gray-100 rounded-[2.5rem] p-10">
                 <h3 className="text-xl font-black uppercase tracking-tight italic mb-8">Direct Channels</h3>
                 <div className="space-y-10">
-                   <a href="https://wa.me/212600000000" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group">
+                   <a 
+                    href={`https://wa.me/${settings?.whatsapp_number?.replace(/\s/g, '').replace('+', '') || '212600000000'}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center gap-6 group"
+                   >
                       <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all duration-500">
                          <MessageCircle className="w-6 h-6" />
                       </div>
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">WhatsApp</p>
-                        <p className="text-sm font-bold">+212 600-000000</p>
+                        <p className="text-sm font-bold">{settings?.whatsapp_number || '+212 600-000000'}</p>
                       </div>
                    </a>
                    <div className="flex items-center gap-6 group">
@@ -66,7 +81,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Email</p>
-                        <p className="text-sm font-bold">support@ilywear.ma</p>
+                        <p className="text-sm font-bold">{settings?.contact_email || 'support@ilywear.ma'}</p>
                       </div>
                    </div>
                    <div className="flex items-center gap-6 group">
@@ -75,7 +90,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Showroom</p>
-                        <p className="text-sm font-bold">Casablanca, Morocco</p>
+                        <p className="text-sm font-bold">Agadir, Morocco</p>
                       </div>
                    </div>
                 </div>
