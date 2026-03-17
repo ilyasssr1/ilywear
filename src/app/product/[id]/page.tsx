@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ProductDetailsClient from '@/components/ProductDetailsClient';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export default async function ProductPage({
   params,
