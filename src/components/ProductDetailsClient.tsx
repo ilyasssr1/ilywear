@@ -28,7 +28,7 @@ export default function ProductDetailsClient({ product }: { product: Product }) 
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hello IlyWear! I want to order this product:\n\n*Product*: ${product.title}\n*Price*: ${product.price} MAD\n*Product ID*: ${product.id}\n${selectedSize ? `*Size*: ${selectedSize}\n` : ''}${selectedColor ? `*Color*: ${selectedColor}\n` : ''}*Link*: https://ilywear.vercel.app/product/${product.id}`
+    `Hello IlyWear! I want to order this product:\n\n*Product*: ${product.title}\n*Price*: ${product.price} MAD\n*Product ID*: ${product.id}\n${selectedSize ? `*Size*: ${selectedSize}\n` : ''}${selectedColor ? `*Color*: ${selectedColor}\n` : ''}*Link*: https://ilywear.shop/product/${product.id}`
   );
 
   return (
