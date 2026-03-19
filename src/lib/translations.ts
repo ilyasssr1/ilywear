@@ -286,6 +286,16 @@ export const translations = {
 
     // Error Page
     something_wrong: "Something went wrong",
+
+    // Auth
+    signed_out: "Signed out successfully",
+    welcome: "Welcome back",
+
+    // Common
+    all_morocco: "Worldwide / Morocco",
+    fast_delivery: "Fast Delivery",
+    connect: "Connect",
+    instagram: "Instagram",
   },
   ar: {
     // Navigation
@@ -573,6 +583,16 @@ export const translations = {
     // Error Page
     // Error Page
     something_wrong: "حدث خطأ ما",
+
+    // Auth
+    signed_out: "تم تسجيل الخروج بنجاح",
+    welcome: "مرحباً بعودتك",
+
+    // Common
+    all_morocco: "أنحاء المغرب",
+    fast_delivery: "توصيل سريع",
+    connect: "تواصل معنا",
+    instagram: "إنستغرام",
   },
   fr: {
     // Navigation
@@ -859,5 +879,15 @@ export const translations = {
 
     // Error Page
     something_wrong: "Quelque chose s'est mal passé",
+
+    // Auth
+    signed_out: "Déconnexion réussie",
+    welcome: "Bienvenue",
+
+    // Common
+    all_morocco: "Partout au Maroc",
+    fast_delivery: "Livraison Rapide",
+    connect: "Contactez-nous",
+    instagram: "Instagram",
   }
 };
