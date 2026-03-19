@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import NextImage from 'next/image';
 import {
   ShoppingBag, Heart, Menu, X, User, LogOut,
   Settings, Package, Search, ChevronRight,
@@ -91,8 +92,14 @@ export default function Header() {
       }`}>
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-black tracking-tighter text-primary uppercase italic">
-            Ily<span className="text-accent font-light not-italic">Wear</span>
+          <Link href="/" className="relative h-10 w-32 sm:w-40 transition-transform hover:scale-105 active:scale-95">
+            <NextImage
+              src="/logo-ilywear.png"
+              alt="IlyWear Logo"
+              fill
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
