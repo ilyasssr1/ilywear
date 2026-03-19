@@ -18,6 +18,9 @@ export const metadata = {
     card: 'summary_large_image',
     title: "IlyWear",
     description: "Premium Moroccan Fashion",
+  },
+  icons: {
+    icon: '/icon.png',
   }
 };
 
