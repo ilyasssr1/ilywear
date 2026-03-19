@@ -9,83 +9,90 @@ import Link from 'next/link';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import ScrollReveal from '@/components/ScrollReveal';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ShopPage() {
   const searchParams = useSearchParams();
   const category = searchParams.get('category') || '';
   const sort = searchParams.get('sort') || 'newest';
   const query = searchParams.get('q')?.toLowerCase() || '';
+  const { t, isRTL } = useLanguage();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [priceRange, setPriceRange] = useState<string>('all');
+  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<string>('');
+  const [inStockOnly, setInStockOnly] = useState<boolean>(false);
 
   useEffect(() => {
     async function load() {
       setLoading(true);
       let data = await fetchProducts();
-
-      if (category) {
-        data = data.filter(p => p.category === category);
-      }
-
-      if (query) {
-        data = data.filter(p =>
-          p.title.toLowerCase().includes(query) ||
-          p.description.toLowerCase().includes(query)
-        );
-      }
+      
+      if (category) data = data.filter(p => p.category === category);
+      if (query) data = data.filter(p => p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+      
+      // Advanced Filters
+      if (selectedSize) data = data.filter(p => p.sizes?.includes(selectedSize));
+      if (selectedColor) data = data.filter(p => p.colors?.includes(selectedColor));
+      if (inStockOnly) data = data.filter(p => p.stock && p.stock > 0);
 
       if (priceRange === '0-200') data = data.filter(p => p.price <= 200);
       else if (priceRange === '200-500') data = data.filter(p => p.price > 200 && p.price <= 500);
       else if (priceRange === '500+') data = data.filter(p => p.price > 500);
-
+      
       if (sort === 'price-asc') data = [...data].sort((a, b) => a.price - b.price);
       else if (sort === 'price-desc') data = [...data].sort((a, b) => b.price - a.price);
       else if (sort === 'name') data = [...data].sort((a, b) => a.title.localeCompare(b.title));
-
+      
       setProducts(data);
       setLoading(false);
     }
     load();
-  }, [category, sort, query, priceRange]);
+  }, [category, sort, query, priceRange, selectedSize, selectedColor, inStockOnly]);
+
+  const categoryLabels: Record<string, string> = {
+    women: t('women'),
+    men: t('men'),
+    promotions: t('promotions'),
+  };
 
   return (
     <>
       <Header />
       <main className="flex-1 bg-white min-h-screen">
         <div className="container mx-auto px-6 py-12">
-          {/* Header & Filters */}
           <div className="flex flex-col gap-12 mb-16">
             <ScrollReveal>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                  <span className="text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-3 inline-block">Explore</span>
+                  <span className="text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-3 inline-block">{t('explore')}</span>
                   <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-none">
-                    {category ? `${category}` : 'The Collection'}
+                    {category ? categoryLabels[category] || category : t('the_collection')}
                   </h1>
                 </div>
                 <p className="text-gray-400 text-sm max-w-xs font-medium">
-                  Showing {products.length} artisan-selected pieces.
+                  {t('showing_pieces').replace('{count}', products.length.toString())}
                 </p>
               </div>
             </ScrollReveal>
             
             <div className="flex flex-wrap gap-6 items-start border-b border-gray-100 pb-10">
               <div className="flex-1 min-w-[300px]">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4 block">Collections</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4 block">{t('collections')}</span>
                 <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1">
                   {[
-                    { label: 'All Items', href: '/shop' },
-                    { label: 'Women', href: '/shop?category=women' },
-                    { label: 'Men', href: '/shop?category=men' },
-                    { label: 'Promotions', href: '/shop?category=promotions', accent: true }
+                    { label: t('all_items'), href: '/shop' },
+                    { label: t('women'), href: '/shop?category=women' },
+                    { label: t('men'), href: '/shop?category=men' },
+                    { label: t('promotions'), href: '/shop?category=promotions', accent: true }
                   ].map((filter) => (
                     <Link 
-                      key={filter.label}
+                      key={filter.href}
                       href={filter.href} 
-                      className={`px-8 py-3 rounded-2xl text-[10px] uppercase font-black tracking-widest transition-all border ${
-                        (!category && filter.label === 'All Items') || category === filter.label.toLowerCase() 
+                      className={`px-8 py-3 rounded-2xl text-[10px] uppercase font-black tracking-widest transition-all border whitespace-nowrap ${
+                        (!category && filter.label === t('all_items')) || category === filter.href.split('=')[1]
                         ? 'bg-black text-white border-black shadow-2xl shadow-black/20 scale-105' 
                         : filter.accent && category === 'promotions'
                         ? 'bg-accent text-white border-accent shadow-2xl shadow-accent/20 scale-105'
@@ -101,17 +108,17 @@ export default function ShopPage() {
               </div>
 
               <div className="w-full md:w-auto">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4 block">Sort By</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4 block">{t('sort_by')}</span>
                 <div className="flex gap-2">
                   {[
-                    { label: 'Price: Low-High', value: 'price-asc' },
-                    { label: 'Price: High-Low', value: 'price-desc' },
-                    { label: 'A-Z', value: 'name' }
+                    { label: t('price_low_high'), value: 'price-asc' },
+                    { label: t('price_high_low'), value: 'price-desc' },
+                    { label: t('name_az'), value: 'name' }
                   ].map((s) => (
                     <Link
                       key={s.value}
                       href={`/shop?${category ? `category=${category}&` : ''}${query ? `q=${query}&` : ''}sort=${s.value}`}
-                      className={`px-5 py-3 rounded-2xl text-[9px] font-black uppercase tracking-widest border transition-all ${
+                      className={`px-5 py-3 rounded-2xl text-[9px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${
                         sort === s.value 
                         ? 'bg-primary text-white border-primary shadow-lg' 
                         : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300'
@@ -124,36 +131,98 @@ export default function ShopPage() {
               </div>
             </div>
 
-            {/* Price Range Filter */}
-            <div className="flex flex-wrap items-center gap-4">
-              <div className="flex items-center gap-2 text-gray-400">
-                <SlidersHorizontal className="w-4 h-4" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Price Range</span>
+            <div className="flex flex-wrap items-center gap-x-12 gap-y-8">
+              {/* Price Filter */}
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-2 text-gray-400">
+                  <SlidersHorizontal className="w-4 h-4" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t('price_range')}</span>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {[
+                    { label: t('all_prices'), value: 'all' },
+                    { label: t('under_200'), value: '0-200' },
+                    { label: t('range_200_500'), value: '200-500' },
+                    { label: t('above_500'), value: '500+' },
+                  ].map((range) => (
+                    <button
+                      key={range.value}
+                      onClick={() => setPriceRange(range.value)}
+                      className={`px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${
+                        priceRange === range.value
+                        ? 'bg-accent text-white border-accent shadow-lg shadow-accent/20'
+                        : 'bg-white text-gray-400 border-gray-100 hover:border-accent hover:text-accent'
+                      }`}
+                    >
+                      {range.label}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="flex gap-2">
-                {[
-                  { label: 'All Prices', value: 'all' },
-                  { label: 'Under 200 MAD', value: '0-200' },
-                  { label: '200–500 MAD', value: '200-500' },
-                  { label: '500+ MAD', value: '500+' },
-                ].map((range) => (
-                  <button
-                    key={range.value}
-                    onClick={() => setPriceRange(range.value)}
-                    className={`px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${
-                      priceRange === range.value
-                      ? 'bg-accent text-white border-accent shadow-lg shadow-accent/20'
-                      : 'bg-white text-gray-400 border-gray-100 hover:border-accent hover:text-accent'
-                    }`}
-                  >
-                    {range.label}
-                  </button>
-                ))}
+
+              {/* Size Filter */}
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-2 text-gray-400">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t('size')}</span>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {['S', 'M', 'L', 'XL', 'XXL'].map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(selectedSize === size ? '' : size)}
+                      className={`w-10 h-10 rounded-xl text-[9px] font-black border transition-all ${
+                        selectedSize === size
+                        ? 'bg-black text-white border-black shadow-lg shadow-black/20'
+                        : 'bg-white text-gray-400 border-gray-100 hover:border-black hover:text-black'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Color Filter */}
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-2 text-gray-400">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t('color')}</span>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {['#000000', '#FFFFFF', '#D4AF37', '#94A3B8'].map((color) => (
+                    <button
+                      key={color}
+                      onClick={() => setSelectedColor(selectedColor === color ? '' : color)}
+                      className={`w-8 h-8 rounded-full border-2 transition-all ${
+                        selectedColor === color
+                        ? 'scale-125 border-accent shadow-lg ring-2 ring-accent/20 ring-offset-2'
+                        : 'border-white shadow-sm hover:scale-110'
+                      }`}
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Availability Filter */}
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-2 text-gray-400">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t('availability')}</span>
+                </div>
+                <button
+                  onClick={() => setInStockOnly(!inStockOnly)}
+                  className="flex items-center gap-3 group cursor-pointer"
+                >
+                  <div className={`w-10 h-6 rounded-full p-1 transition-all duration-300 ${inStockOnly ? 'bg-green-500' : 'bg-gray-200'}`}>
+                    <div className={`w-4 h-4 bg-white rounded-full transition-all duration-300 ${inStockOnly ? 'translate-x-4' : 'translate-x-0'}`} />
+                  </div>
+                  <span className={`text-[10px] font-black uppercase tracking-widest transition-colors ${inStockOnly ? 'text-green-500' : 'text-gray-400 group-hover:text-black'}`}>
+                    {t('in_stock_only')}
+                  </span>
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Product Grid */}
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
@@ -180,13 +249,18 @@ export default function ShopPage() {
               <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-sm mb-6">
                 <Search className="w-8 h-8 text-gray-200" />
               </div>
-              <h3 className="text-2xl font-black tracking-tighter uppercase italic text-primary mb-3">No Pieces Found</h3>
-              <p className="text-gray-500 font-medium max-w-xs mx-auto text-sm leading-relaxed">We couldn't find any items matching your current selection. Try a different category or price range.</p>
+              <h3 className="text-2xl font-black tracking-tighter uppercase italic text-primary mb-3">{t('no_pieces_found')}</h3>
+              <p className="text-gray-500 font-medium max-w-xs mx-auto text-sm leading-relaxed">{t('no_pieces_desc')}</p>
               <button
-                onClick={() => setPriceRange('all')}
+                onClick={() => {
+                  setPriceRange('all');
+                  setSelectedSize('');
+                  setSelectedColor('');
+                  setInStockOnly(false);
+                }}
                 className="mt-8 bg-black text-white px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-accent transition-all"
               >
-                Reset Filters
+                {t('reset_filters')}
               </button>
             </div>
           )}

@@ -1,50 +1,37 @@
-import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, Inter, Outfit } from 'next/font/google';
-import './globals.css';
-import { CartProvider } from '@/context/CartContext';
-import { ToastProvider } from '@/context/ToastContext';
-import { WishlistProvider } from '@/context/WishlistContext';
-import { LanguageProvider } from '@/context/LanguageContext';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Providers } from "@/components/Providers";
+import WhatsAppFloating from "@/components/WhatsAppFloating";
 
-const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta' });
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-export const metadata: Metadata = {
-  title: 'IlyWear - Modern Moroccan Fashion',
-  description: 'Premium Moroccan streetwear designed for the bold. Experience comfort without compromise.',
-  keywords: ['fashion', 'moroccan', 'clothing', 'streetwear', 'men', 'women'],
+export const metadata = {
+  title: "IlyWear | Modern Moroccan Fashion & Streetwear",
+  description: "Explore the fusion of tradition and modernity with IlyWear. Premium Moroccan streetwear for women and men. Free shipping across Morocco.",
   openGraph: {
-    title: 'IlyWear - Modern Moroccan Fashion',
-    description: 'Premium Moroccan streetwear designed for the bold.',
-    type: 'website',
+    title: "IlyWear | Streetwear Marocain Premium",
+    description: "La nouvelle collection 2026 est disponible. Qualité premium, design unique.",
+    images: [{ url: '/og-image.jpg' }],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: "IlyWear",
+    description: "Premium Moroccan Fashion",
+  }
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#000000" />
-      </head>
-      <body className={`${inter.variable} ${outfit.variable} font-sans bg-white overflow-x-hidden`}>
-        <ErrorBoundary>
-          <LanguageProvider>
-            <ToastProvider>
-              <CartProvider>
-                <WishlistProvider>
-                  {children}
-                </WishlistProvider>
-              </CartProvider>
-            </ToastProvider>
-          </LanguageProvider>
-        </ErrorBoundary>
+      <body className={`${inter.className} ${inter.variable}`}>
+        <Providers>
+          {children}
+          <WhatsAppFloating />
+        </Providers>
       </body>
     </html>
   );

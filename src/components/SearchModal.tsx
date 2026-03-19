@@ -4,12 +4,14 @@ import { Search, X, Package, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { fetchProducts } from '@/services/products';
+import { useCurrency } from '@/context/CurrencyContext';
 
 export default function SearchModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<any[]>([]);
   const [allProducts, setAllProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const { formatPrice } = useCurrency();
   const router = useRouter();
 
   useEffect(() => {
@@ -128,7 +130,7 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean, onCl
                        </div>
                     </div>
                     <div className="flex items-center gap-4">
-                       <span className="text-xs font-black italic text-gray-500">{product.price} MAD</span>
+                       <span className="text-xs font-black italic text-gray-500">{formatPrice(product.price)}</span>
                        <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-black group-hover:translate-x-1 transition-all" />
                     </div>
                   </button>

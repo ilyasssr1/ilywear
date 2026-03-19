@@ -5,8 +5,29 @@ import Footer from '@/components/Footer';
 import { Sparkles, Heart, Globe, ShieldCheck, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function AboutPage() {
+  const { t, isRTL } = useLanguage();
+
+  const values = [
+    {
+      icon: <Sparkles className="w-8 h-8" />,
+      title: t('authentic_design'),
+      desc: t('authentic_design_desc')
+    },
+    {
+      icon: <ShieldCheck className="w-8 h-8" />,
+      title: t('premium_quality_value'),
+      desc: t('premium_quality_value_desc')
+    },
+    {
+      icon: <Globe className="w-8 h-8" />,
+      title: t('local_impact'),
+      desc: t('local_impact_desc')
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Header />
@@ -18,9 +39,9 @@ export default function AboutPage() {
              <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black" />
           </div>
           <div className="container mx-auto px-6 relative z-10 text-center">
-            <span className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-6 inline-block animate-fade-in">Our Story</span>
+            <span className="text-accent text-[10px] font-black uppercase tracking-[0.4em] mb-6 inline-block animate-fade-in">{t('our_story')}</span>
             <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase italic leading-none animate-slide-up">
-              Redefining <br /> <span className="text-accent">Moroccan</span> Style
+              {t('redefining')} <br /> <span className="gradient-text">{t('moroccan')}</span> {t('style')}
             </h1>
           </div>
         </section>
@@ -30,17 +51,17 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
               <div>
-                <h2 className="text-4xl font-black uppercase tracking-tighter italic mb-8">The Philosophy</h2>
+                <h2 className="text-4xl font-black uppercase tracking-tighter italic mb-8">{t('philosophy')}</h2>
                 <p className="text-gray-600 text-lg leading-relaxed font-medium mb-8">
-                  IlyWear was born from a simple yet powerful vision: to bridge the gap between traditional Moroccan craftsmanship and the dynamic world of global streetwear.
+                  {t('philosophy_text_1')}
                 </p>
                 <p className="text-gray-500 leading-relaxed mb-10">
-                  We believe that fashion is a language which should speak of both heritage and future. Every piece we create is a tribute to the vibrant streets of Casablanca and the timeless elegance of Moroccan textures.
+                  {t('philosophy_text_2')}
                 </p>
                 <Link href="/shop" className="group flex items-center gap-4 text-xs font-black uppercase tracking-widest text-primary">
-                   Explore the Collection
+                   {t('explore_collection')}
                    <div className="w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all">
-                     <ArrowRight className="w-4 h-4" />
+                     <ArrowRight className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
                    </div>
                 </Link>
               </div>
@@ -60,28 +81,12 @@ export default function AboutPage() {
         <section className="bg-gray-50 py-32 rounded-[4rem] mx-4 mb-32">
           <div className="container mx-auto px-6">
             <div className="text-center mb-20">
-              <h2 className="text-3xl font-black uppercase tracking-tighter italic mb-4">Our Core Values</h2>
-              <p className="text-gray-400 text-sm uppercase tracking-widest font-bold">What makes IlyWear different</p>
+              <h2 className="text-3xl font-black uppercase tracking-tighter italic mb-4">{t('core_values')}</h2>
+              <p className="text-gray-400 text-sm uppercase tracking-widest font-bold">{t('what_makes_different')}</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: <Sparkles className="w-8 h-8" />,
-                  title: "Authentic Design",
-                  desc: "Unique silhouettes that you won't find anywhere else, designed right here in Morocco."
-                },
-                {
-                  icon: <ShieldCheck className="w-8 h-8" />,
-                  title: "Premium Quality",
-                  desc: "We source only the finest fabrics to ensure every piece feels as good as it looks."
-                },
-                {
-                  icon: <Globe className="w-8 h-8" />,
-                  title: "Local Impact",
-                  desc: "Proudly supporting local artisans and manufacturers across the kingdom."
-                }
-              ].map((value, idx) => (
+              {values.map((value, idx) => (
                 <div key={idx} className="bg-white p-12 rounded-[3rem] border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
                   <div className="text-accent mb-8">{value.icon}</div>
                   <h3 className="text-xl font-black uppercase tracking-tight italic mb-4">{value.title}</h3>
@@ -99,13 +104,13 @@ export default function AboutPage() {
                <Sparkles className="w-32 h-32 text-accent" />
             </div>
             <h2 className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter mb-8 leading-none">
-              Join the <br /> <span className="text-accent italic">Elite</span> Movement
+              {t('join_elite')} <br /> <span className="gradient-text italic">{t('elite')}</span> {t('movement')}
             </h2>
             <p className="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
-              Be part of the community that is redefining style in the Maghreb.
+              {t('elite_subtitle')}
             </p>
             <Link href="/register" className="bg-white text-black px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-accent transition-all inline-block shadow-2xl shadow-white/5">
-              Create an Account
+              {t('create_account')}
             </Link>
           </div>
         </section>

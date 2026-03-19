@@ -13,6 +13,7 @@ interface Review {
   rating: number;
   comment: string;
   created_at: string;
+  images?: string[];
 }
 
 export default function AllReviewsPage({ params }: { params: { id: string } }) {
@@ -119,6 +120,15 @@ export default function AllReviewsPage({ params }: { params: { id: string } }) {
                         <Star key={s} className={`w-4 h-4 ${review.rating >= s ? 'fill-accent text-accent' : 'text-gray-200'}`} />
                       ))}
                     </div>
+                    {review.images && review.images.length > 0 && (
+                      <div className="flex gap-2 mb-6 overflow-x-auto scrollbar-hide py-1">
+                        {review.images.map((img, i) => (
+                          <div key={i} className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-100 shadow-sm transition-transform hover:scale-105 cursor-pointer">
+                            <img src={img} alt={`Review ${i}`} className="w-full h-full object-cover" onClick={() => window.open(img, '_blank')} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                     <p className="text-gray-600 text-[15px] font-medium leading-relaxed">
                       {review.comment}
                     </p>

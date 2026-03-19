@@ -7,6 +7,10 @@ import { Product } from '@/services/products';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { useToast } from '@/context/ToastContext';
+import { useLanguage } from '@/context/LanguageContext';
+import { useQuickView } from '@/context/QuickViewContext';
+import { useCurrency } from '@/context/CurrencyContext';
+import PromoCountdown from './PromoCountdown';
 import { useState } from 'react';
 
 interface ProductCardProps {
@@ -16,7 +20,10 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
+  const { openQuickView } = useQuickView();
+  const { formatPrice } = useCurrency();
   const { showToast } = useToast();
+  const { t, isRTL } = useLanguage();
   const [isAdding, setIsAdding] = useState(false);
   const wishlisted = isWishlisted(product.id);
 
@@ -25,7 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     e.stopPropagation();
     setIsAdding(true);
     addToCart(product, 1, product.sizes?.[0], product.colors?.[0]);
-    showToast(`${product.title} added to bag`);
+    showToast(`${product.title} ${t('added_to_bag').toLowerCase()}`);
     setTimeout(() => setIsAdding(false), 1500);
   };
 
@@ -33,14 +40,19 @@ export default function ProductCard({ product }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
     toggleWishlist(product);
-    showToast(wishlisted ? 'Removed from wishlist' : 'Added to wishlist', wishlisted ? 'info' : 'success');
+    showToast(wishlisted ? t('removed_from_wishlist') : t('added_to_wishlist'), wishlisted ? 'info' : 'success');
+  };
+
+  const handleQuickView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openQuickView(product);
+    showToast(t('quick_view'), 'info');
   };
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-black/5 transition-all duration-700 hover:-translate-y-2">
-      {/* Product Image */}
       <Link href={`/product/${product.id}`} className="aspect-[3/4] overflow-hidden bg-[#F5F5F5] relative w-full block">
-        {/* Badges */}
         {product.category === 'promotions' && (
           <div className="absolute top-4 right-4 z-10 bg-red-500 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg shadow-red-500/30">
             -40%
@@ -48,11 +60,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
         {Number(product.id) % 2 !== 0 && product.category !== 'promotions' && (
           <div className="absolute top-4 left-4 z-10 bg-black text-white text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
-            New
+            {t('new_badge')}
           </div>
         )}
 
-        {/* Wishlist Button */}
         <button
           onClick={handleToggleWishlist}
           className={`absolute top-4 right-4 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 shadow-lg ${
@@ -74,7 +85,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
         />
 
-        {/* Quick Actions Overlay */}
         <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-10">
           <div className="flex gap-2">
             <button
@@ -88,28 +98,33 @@ export default function ProductCard({ product }: ProductCardProps) {
               <ShoppingBag className="w-3.5 h-3.5" />
               {isAdding ? (
                 <span className="flex items-center gap-2">
-                  Added <Check className="w-4 h-4" />
+                  {t('added')} <Check className="w-4 h-4" />
                 </span>
-              ) : 'Add to Bag'}
+              ) : t('add_to_bag')}
             </button>
-            <Link
-              href={`/product/${product.id}`}
-              className="w-12 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl hover:bg-white transition-all"
+            <button
+              onClick={handleQuickView}
+              className="w-12 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl hover:bg-white transition-all group/quick"
+              title={t('quick_view')}
             >
-              <Eye className="w-4 h-4 text-gray-600" />
-            </Link>
+              <Eye className="w-4 h-4 text-gray-600 group-hover/quick:scale-125 transition-transform" />
+            </button>
           </div>
         </div>
 
-        {/* Gradient Overlay on Hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </Link>
 
-      {/* Product Info */}
       <div className="flex flex-col p-5 flex-grow">
         <div className="mb-2 text-[9px] uppercase tracking-[0.2em] text-gray-400 font-black">
           {product.category}
         </div>
+        {product.category === 'promotions' && (
+          <PromoCountdown 
+            endDate={new Date(Date.now() + 86400000).toISOString()} // 24 hours from now
+            className="mb-4 py-1.5 px-4 !rounded-xl !bg-red-500/10 !text-red-500 !shadow-none border border-red-500/20" 
+          />
+        )}
         <Link href={`/product/${product.id}`} className="block">
           <h3 className="text-sm font-bold text-primary line-clamp-1 mb-3 group-hover:text-accent transition-colors duration-300">
             {product.title}
@@ -117,7 +132,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </Link>
         <div className="mt-auto flex items-center justify-between">
           <p className="text-lg font-black italic text-primary">
-            {product.price} <span className="text-[10px] text-gray-400 font-bold not-italic uppercase tracking-widest">MAD</span>
+            {formatPrice(product.price)}
           </p>
           {product.colors && product.colors.length > 0 && (
             <div className="flex -space-x-1">

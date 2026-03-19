@@ -1,8 +1,11 @@
 'use client';
 
 import { X, Ruler } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function SizeGuide({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const { t } = useLanguage();
+  
   if (!isOpen) return null;
 
   const sizes = [
@@ -15,15 +18,13 @@ export default function SizeGuide({ isOpen, onClose }: { isOpen: boolean; onClos
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
       
-      {/* Modal */}
-      <div className="relative w-full max-w-lg bg-white rounded-[2.5rem] shadow-2xl overflow-hidden animate-zoom-in">
+      <div className="relative w-full max-w-lg bg-white rounded-[2.5rem] shadow-2xl overflow-hidden animate-scale-in">
         <div className="p-8 border-b border-gray-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
              <Ruler className="w-5 h-5 text-accent" />
-             <h2 className="text-xl font-black uppercase tracking-tight italic">Size Guide</h2>
+             <h2 className="text-xl font-black uppercase tracking-tight italic">{t('size_guide_title')}</h2>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-gray-50 rounded-xl transition-colors">
             <X className="w-5 h-5 text-gray-400" />
@@ -31,16 +32,16 @@ export default function SizeGuide({ isOpen, onClose }: { isOpen: boolean; onClos
         </div>
 
         <div className="p-8">
-          <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] mb-8">Measurements in Inches (Moroccan Standard)</p>
+          <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] mb-8">{t('measurements')}</p>
           
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-gray-100">
-                  <th className="py-4 text-[9px] font-black uppercase tracking-widest text-primary">Size</th>
-                  <th className="py-4 text-[9px] font-black uppercase tracking-widest text-primary">Waist</th>
-                  <th className="py-4 text-[9px] font-black uppercase tracking-widest text-primary">Hip</th>
-                  <th className="py-4 text-[9px] font-black uppercase tracking-widest text-primary">Length</th>
+                  <th className="py-4 text-[9px] font-black uppercase tracking-widest text-primary">{t('size')}</th>
+                  <th className="py-4 text-[9px] font-black uppercase tracking-widest text-primary">{t('waist')}</th>
+                  <th className="py-4 text-[9px] font-black uppercase tracking-widest text-primary">{t('hip')}</th>
+                  <th className="py-4 text-[9px] font-black uppercase tracking-widest text-primary">{t('length')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -58,7 +59,7 @@ export default function SizeGuide({ isOpen, onClose }: { isOpen: boolean; onClos
 
           <div className="mt-10 p-6 bg-gray-50 rounded-2xl border border-gray-100">
              <p className="text-[10px] text-gray-400 font-bold uppercase leading-relaxed text-center">
-               * Our pieces are designed for a comfortable, modern fit. If you prefer an oversized look, please choose one size up.
+               {t('size_guide_note')}
              </p>
           </div>
           
@@ -66,7 +67,7 @@ export default function SizeGuide({ isOpen, onClose }: { isOpen: boolean; onClos
             onClick={onClose}
             className="w-full mt-8 bg-black text-white py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-accent transition-all"
           >
-            Got it, thanks
+            {t('got_it')}
           </button>
         </div>
       </div>
