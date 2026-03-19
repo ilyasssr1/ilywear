@@ -85,7 +85,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
         />
 
-        <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-10">
+        <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full lg:group-hover:translate-y-0 lg:transition-transform lg:duration-500 z-10 sm:translate-y-0">
           <div className="flex gap-2">
             <button
               onClick={handleAddToCart}
@@ -97,10 +97,12 @@ export default function ProductCard({ product }: ProductCardProps) {
             >
               <ShoppingBag className="w-3.5 h-3.5" />
               {isAdding ? (
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-2 text-[8px] sm:text-[10px]">
                   {t('added')} <Check className="w-4 h-4" />
                 </span>
-              ) : t('add_to_bag')}
+              ) : (
+                <span className="text-[8px] sm:text-[10px]">{t('add_to_bag')}</span>
+              )}
             </button>
             <button
               onClick={handleQuickView}

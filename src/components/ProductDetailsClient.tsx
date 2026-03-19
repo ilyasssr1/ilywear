@@ -159,24 +159,37 @@ export default function ProductDetailsClient({ product }: { product: Product }) 
           </div>
         </div>
 
-        {/* Order Action */}
+        {/* Order Actions */}
         <div className="flex flex-col gap-4 mt-2 border-t border-gray-50 pt-8">
           <h3 className="font-black text-[10px] uppercase tracking-widest text-gray-400 mb-2">{t('shopping_options')}</h3>
-          <button
-            onClick={() => {
-              addToCart(product, 1, selectedSize, selectedColor);
-              setIsAdded(true);
-              setTimeout(() => setIsAdded(false), 2000);
-            }}
-            className={`w-full flex items-center justify-center gap-4 py-6 px-8 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl ${
-              isAdded 
-              ? 'bg-green-500 text-white shadow-green-500/20' 
-              : 'bg-black text-white hover:bg-accent hover:-translate-y-1 shadow-black/30'
-            }`}
-          >
-            {isAdded ? <Check className="w-5 h-5" /> : <ShoppingBag className="w-5 h-5" />}
-            <span>{isAdded ? t('added_to_bag') : t('add_to_bag')}</span>
-          </button>
+          
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              onClick={() => {
+                addToCart(product, 1, selectedSize, selectedColor);
+                setIsAdded(true);
+                setTimeout(() => setIsAdded(false), 2000);
+              }}
+              className={`flex-1 flex items-center justify-center gap-4 py-6 px-8 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl ${
+                isAdded 
+                ? 'bg-green-500 text-white shadow-green-500/20' 
+                : 'bg-black text-white hover:bg-accent hover:-translate-y-1 shadow-black/30'
+              }`}
+            >
+              {isAdded ? <Check className="w-5 h-5" /> : <ShoppingBag className="w-5 h-5" />}
+              <span>{isAdded ? t('added_to_bag') : t('add_to_bag')}</span>
+            </button>
+
+            <a
+              href={`https://wa.me/212600000000?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-4 py-6 px-8 rounded-2xl bg-[#25D366] text-white font-black text-xs uppercase tracking-[0.2em] transition-all duration-500 hover:bg-[#128C7E] hover:-translate-y-1 shadow-2xl shadow-green-500/20"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span>{t('order_on_whatsapp')}</span>
+            </a>
+          </div>
           
           <a
             href={`https://wa.me/212600000000?text=${whatsappMessage}`}
@@ -216,6 +229,31 @@ export default function ProductDetailsClient({ product }: { product: Product }) 
       </div>
 
       <SizeGuide isOpen={isSizeGuideOpen} onClose={() => setIsSizeGuideOpen(false)} />
+
+      {/* Sticky Mobile Add to Bag */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-t border-gray-100 p-4 pb-8 transition-transform duration-500 flex gap-3 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)]">
+        <button
+          onClick={() => {
+            addToCart(product, 1, selectedSize, selectedColor);
+            setIsAdded(true);
+            setTimeout(() => setIsAdded(false), 2000);
+          }}
+          className={`flex-1 flex items-center justify-center gap-3 py-4 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all duration-500 ${
+            isAdded ? 'bg-green-500 text-white' : 'bg-black text-white shadow-xl shadow-black/20'
+          }`}
+        >
+          {isAdded ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
+          {isAdded ? t('added') : t('add_to_bag')}
+        </button>
+        <a
+          href={`https://wa.me/212600000000?text=${whatsappMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-14 h-14 rounded-xl bg-[#25D366] text-white flex items-center justify-center shadow-lg shadow-green-500/20 active:scale-95 transition-transform"
+        >
+          <MessageCircle className="w-6 h-6" />
+        </a>
+      </div>
     </div>
   );
 }

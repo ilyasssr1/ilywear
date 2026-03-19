@@ -80,8 +80,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Categories Section */}
+        {/* New Arrivals Section */}
         <section className="py-24 bg-white">
+          <div className="container mx-auto px-6">
+            <ScrollReveal>
+              <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div className="max-w-xl">
+                  <span className="text-accent text-xs font-bold uppercase tracking-[0.3em] mb-3 inline-block">{t('new_arrivals')}</span>
+                  <h2 className="text-4xl font-black tracking-tighter uppercase italic leading-tight">{t('elite_pieces')} <br />{t('you_cant_miss')}</h2>
+                </div>
+                <Link href="/shop" className="group flex items-center gap-4 text-xs font-black uppercase tracking-widest bg-black text-white px-10 py-5 rounded-full hover:bg-accent transition-all duration-500 shadow-xl shadow-black/10">
+                  {t('view_all_arrivals')}
+                  <span className={`transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`}>&rarr;</span>
+                </Link>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+              {featuredProducts.map((product, i) => (
+                <ScrollReveal key={product.id} delay={i * 100}>
+                  <ProductCard product={product} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Categories Section */}
+        <section className="py-24 bg-[#FBFBFB]">
           <div className="container mx-auto px-6">
             <ScrollReveal>
               <div className="flex flex-col items-center mb-16">
@@ -155,31 +181,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Featured Products */}
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-6">
-            <ScrollReveal>
-              <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div className="max-w-xl">
-                  <span className="text-accent text-xs font-bold uppercase tracking-[0.3em] mb-3 inline-block">{t('trending_now')}</span>
-                  <h2 className="text-4xl font-black tracking-tighter uppercase italic leading-tight">{t('elite_pieces')} <br />{t('you_cant_miss')}</h2>
-                </div>
-                <Link href="/shop" className="group flex items-center gap-4 text-xs font-black uppercase tracking-widest bg-black text-white px-10 py-5 rounded-full hover:bg-accent transition-all duration-500 shadow-xl shadow-black/10">
-                  {t('view_all_arrivals')}
-                  <span className={`transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`}>&rarr;</span>
-                </Link>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-              {featuredProducts.map((product, i) => (
-                <ScrollReveal key={product.id} delay={i * 100}>
-                  <ProductCard product={product} />
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Community Section */}
         <section className="py-24 bg-white overflow-hidden">

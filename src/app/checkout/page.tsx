@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
-import { ShoppingBag, ArrowRight, MapPin, Phone, User, CheckCircle2 } from 'lucide-react';
+import { ShoppingBag, ArrowRight, MapPin, Phone, User, CheckCircle2, Truck, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { fetchProducts, createOrder } from '@/services/products';
 import { useLanguage } from '@/context/LanguageContext';
@@ -243,7 +243,25 @@ export default function CheckoutPage() {
                       </>
                     )}
                   </button>
-                  <p className="text-center text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-6">
+                  
+                  <div className="flex items-center justify-center gap-6 mt-8 p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                    <div className="flex items-center gap-2 opacity-60 grayscale hover:grayscale-0 transition-all">
+                      <ShieldCheck className="w-5 h-5 text-green-600" />
+                      <span className="text-[10px] font-black uppercase tracking-widest">{t('ssl_secure')}</span>
+                    </div>
+                    <div className="w-[1px] h-4 bg-gray-200" />
+                    <div className="flex items-center gap-2 opacity-60 grayscale hover:grayscale-0 transition-all">
+                      <Truck className="w-5 h-5" />
+                      <span className="text-[10px] font-black uppercase tracking-widest">{t('fast_shipping')}</span>
+                    </div>
+                    <div className="w-[1px] h-4 bg-gray-200" />
+                    <div className="flex items-center gap-2 opacity-60 grayscale hover:grayscale-0 transition-all">
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span className="text-[10px] font-black uppercase tracking-widest">{t('premium_quality')}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-center text-[10px] font-black italic text-accent uppercase tracking-widest mt-6">
                     {t('payment_cod')}
                   </p>
                 </div>

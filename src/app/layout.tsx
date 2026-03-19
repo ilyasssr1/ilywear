@@ -6,6 +6,7 @@ import WhatsAppFloating from "@/components/WhatsAppFloating";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
+  metadataBase: new URL('https://ilywear.shop'),
   title: "IlyWear | Modern Moroccan Fashion & Streetwear",
   description: "Explore the fusion of tradition and modernity with IlyWear. Premium Moroccan streetwear for women and men. Free shipping across Morocco.",
   openGraph: {

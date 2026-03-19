@@ -20,8 +20,12 @@ export const translations = {
     sale_ends_in: "Ends in",
     color: "Color",
     availability: "Availability",
+    order_history: "Order History",
+    new_arrivals: "New Arrivals",
     in_stock_only: "In Stock Only",
     upload_image: "Upload Image",
+    order_on_whatsapp: "Order on WhatsApp",
+    ssl_secure: "SSL Secure Payment",
 
     // Hero Section
     new_collection: "New Collection 2026",
@@ -282,17 +286,6 @@ export const translations = {
 
     // Error Page
     something_wrong: "Something went wrong",
-
-    // Auth
-    signed_out: "Signed out successfully",
-    welcome: "Welcome back",
-    order_history: "Order History",
-
-    // Common
-    all_morocco: "Worldwide / Morocco",
-    fast_delivery: "Fast Delivery",
-    connect: "Connect",
-    instagram: "Instagram",
   },
   ar: {
     // Navigation
@@ -313,8 +306,12 @@ export const translations = {
     sale_ends_in: "ينتهي العرض خلال",
     color: "اللون",
     availability: "التوفر",
+    order_history: "سجل الطلبات",
+    new_arrivals: "وصلنا حديثا",
     in_stock_only: "المتوفر فقط",
     upload_image: "تحميل صورة",
+    order_on_whatsapp: "طلب عبر الواتساب",
+    ssl_secure: "دفع آمن SSL",
 
     // Hero Section
     new_collection: "مجموعة جديدة 2026",
@@ -574,18 +571,8 @@ export const translations = {
     back_to_home: "العودة للرئيسية",
 
     // Error Page
+    // Error Page
     something_wrong: "حدث خطأ ما",
-
-    // Auth
-    signed_out: "تم تسجيل الخروج بنجاح",
-    welcome: "مرحباً بعودتك",
-    order_history: "سجل الطلبات",
-
-    // Common
-    all_morocco: "أنحاء المغرب",
-    fast_delivery: "توصيل سريع",
-    connect: "تواصل معنا",
-    instagram: "إنستغرام",
   },
   fr: {
     // Navigation
@@ -606,8 +593,12 @@ export const translations = {
     sale_ends_in: "L'offre se termine dans",
     color: "Couleur",
     availability: "Disponibilité",
+    order_history: "Historique des commandes",
+    new_arrivals: "Nouveautés",
     in_stock_only: "En Stock Uniquement",
     upload_image: "Télécharger une Image",
+    order_on_whatsapp: "Commander via WhatsApp",
+    ssl_secure: "Paiement Sécurisé SSL",
 
     // Hero Section
     new_collection: "Nouvelle Collection 2026",
@@ -868,16 +859,5 @@ export const translations = {
 
     // Error Page
     something_wrong: "Quelque chose s'est mal passé",
-
-    // Auth
-    signed_out: "Déconnexion réussie",
-    welcome: "Bienvenue",
-    order_history: "Historique des commandes",
-
-    // Common
-    all_morocco: "Partout au Maroc",
-    fast_delivery: "Livraison Rapide",
-    connect: "Contactez-nous",
-    instagram: "Instagram",
   }
 };
