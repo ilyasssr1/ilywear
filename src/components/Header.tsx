@@ -92,14 +92,24 @@ export default function Header() {
       }`}>
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="relative h-10 w-32 sm:w-40 transition-transform hover:scale-105 active:scale-95">
-            <NextImage
-              src="/logo-ilywear.png"
-              alt="IlyWear Logo"
-              fill
-              className="object-contain"
-              priority
-            />
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 transition-transform hover:scale-102 active:scale-98 group">
+            <div className={`relative h-10 w-10 sm:h-12 sm:w-12 transition-all duration-500 group-hover:rotate-[360deg] ${isRTL ? 'ml-1' : 'mr-0'}`}>
+              <NextImage
+                src="/icon.png"
+                alt="IlyWear Icon"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="flex flex-col items-start leading-none">
+              <span className="text-xl sm:text-2xl font-black tracking-tighter text-black uppercase italic">
+                Ily<span className="text-accent font-light not-italic">Wear</span>
+              </span>
+              <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 mt-1">
+                Luxury Moroccan Streetwear
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
