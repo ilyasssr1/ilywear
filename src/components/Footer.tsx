@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import NextImage from 'next/image';
 import { Instagram, MessageCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -9,9 +10,24 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white pt-24 pb-12 border-t border-white/5">
       <div className={`container mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 mb-16 text-center ${isRTL ? 'md:text-right' : 'md:text-left'}`}>
-        <div className="md:col-span-4 max-w-sm mx-auto md:mx-0">
-          <Link href="/" className={`text-3xl font-black tracking-tighter mb-6 block hover:scale-105 transition-transform ${isRTL ? 'origin-center md:origin-right' : 'origin-center md:origin-left'}`}>
-            Ily<span className="text-accent italic font-light">Wear</span>
+        <div className="md:col-span-4 max-w-sm mx-auto md:mx-0 flex flex-col items-center md:items-start">
+          <Link href="/" className="flex items-center gap-4 group mb-8">
+            <div className="relative h-14 w-14 sm:h-16 sm:w-16 transition-transform group-hover:scale-110 duration-500">
+              <NextImage
+                src="/icon.png"
+                alt="IlyWear Icon"
+                fill
+                className="object-contain grayscale brightness-200 group-hover:grayscale-0 group-hover:brightness-100 transition-all"
+              />
+            </div>
+            <div className={`flex flex-col items-start leading-none ${isRTL ? 'text-right' : 'text-left'}`}>
+              <span className="text-3xl sm:text-4xl font-black tracking-tighter text-white uppercase italic">
+                Ily<span className="text-accent font-light not-italic">Wear</span>
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-accent mt-2">
+                Elite Moroccan Style
+              </span>
+            </div>
           </Link>
           <p className="text-gray-400 text-sm leading-relaxed mb-8">
             {t('philosophy')}
