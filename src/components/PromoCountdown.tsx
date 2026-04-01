@@ -16,27 +16,49 @@ export default function PromoCountdown({ endDate, className = "" }: PromoCountdo
     minutes: 0,
     seconds: 0,
   });
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    setIsMounted(true);
+    const calculateTime = () => {
       const target = new Date(endDate).getTime();
       const now = new Date().getTime();
       const distance = target - now;
 
       if (distance < 0) {
-        clearInterval(timer);
-        return;
+        return { hours: 0, minutes: 0, seconds: 0 };
       }
 
-      setTimeLeft({
+      return {
         hours: Math.floor((distance / (1000 * 60 * 60))),
         minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
         seconds: Math.floor((distance % (1000 * 60)) / 1000),
-      });
+      };
+    };
+
+    // Set immediately
+    setTimeLeft(calculateTime());
+
+    const timer = setInterval(() => {
+      const newTime = calculateTime();
+      setTimeLeft(newTime);
+      if (newTime.hours === 0 && newTime.minutes === 0 && newTime.seconds === 0) {
+        clearInterval(timer);
+      }
     }, 1000);
 
     return () => clearInterval(timer);
   }, [endDate]);
+
+  if (!isMounted) {
+     return <div className={`flex items-center gap-3 bg-red-500 text-white px-5 py-2.5 rounded-2xl shadow-lg shadow-red-500/20 opacity-50 ${className}`}>
+                 <Timer className="w-4 h-4 animate-pulse-slow" />
+                 <div className="flex items-center gap-2">
+                   <span className="text-[10px] font-black uppercase tracking-widest">{t('sale_ends_in') || 'Ends in'}:</span>
+                   <div className="flex gap-1.5 font-black italic text-xs tabular-nums text-transparent">--:--:--</div>
+                 </div>
+            </div>;
+  }
 
   return (
     <div className={`flex items-center gap-3 bg-red-500 text-white px-5 py-2.5 rounded-2xl shadow-lg shadow-red-500/20 ${className}`}>

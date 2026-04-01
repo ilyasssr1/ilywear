@@ -63,6 +63,29 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cart, userId]);
 
   const addToCart = useCallback((product: Product, quantity: number, size?: string, color?: string) => {
+    // Fire Pixel Tracking Events
+    if (typeof window !== 'undefined') {
+      const w = window as any;
+      if (w.fbq) {
+        w.fbq('track', 'AddToCart', {
+          content_type: 'product',
+          content_ids: [product.id],
+          value: product.price * quantity,
+          currency: 'MAD'
+        });
+      }
+      if (typeof w.ttq !== 'undefined' && w.ttq.track) {
+        w.ttq.track('AddToCart', {
+          content_type: 'product',
+          content_id: product.id.toString(),
+          quantity: quantity,
+          price: product.price,
+          value: product.price * quantity,
+          currency: 'MAD'
+        });
+      }
+    }
+
     setCart((prevCart) => {
       const existingItemIndex = prevCart.findIndex(
         (item) => item.id.toString() === product.id.toString() && item.selectedSize === size && item.selectedColor === color
@@ -70,7 +93,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
       if (existingItemIndex > -1) {
         const newCart = [...prevCart];
-        newCart[existingItemIndex].quantity += quantity;
+        newCart[existingItemIndex] = {
+          ...newCart[existingItemIndex],
+          quantity: newCart[existingItemIndex].quantity + quantity
+        };
         return newCart;
       }
 

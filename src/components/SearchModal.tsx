@@ -66,28 +66,28 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean, onCl
           className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         />
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95, y: -20 }}
+          initial={{ opacity: 0, scale: 0.95, y: 50 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: -20 }}
-          transition={{ type: "spring", bounce: 0, duration: 0.3 }}
-          className="relative w-full max-w-2xl bg-white rounded-[2rem] shadow-2xl border border-gray-100 overflow-hidden"
+          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+          className="relative w-full max-w-2xl bg-[#0A0A0A] rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-[#333] overflow-hidden"
         >
           {/* Search Input */}
-          <div className="flex items-center gap-4 p-6 border-b border-gray-50">
+          <div className="flex items-center gap-4 p-6 border-b border-[#333]">
             <Search className="w-6 h-6 text-accent" />
             <input 
               autoFocus
               placeholder="Search for premium products..."
-              className="flex-1 text-lg font-medium outline-none placeholder:text-gray-300"
+              className="flex-1 text-lg font-sans text-white bg-transparent outline-none placeholder:text-gray-500"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             {query && (
-              <button onClick={() => setQuery('')} className="p-2 text-gray-400 hover:text-black transition-colors rounded-full hover:bg-gray-50">
+              <button onClick={() => setQuery('')} className="p-2 text-gray-400 hover:text-white transition-colors rounded-full hover:bg-[#222]">
                 <X className="w-5 h-5" />
               </button>
             )}
-            <div className="hidden sm:flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-gray-300 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+            <div className="hidden sm:flex items-center gap-1 font-impact text-xs uppercase tracking-widest text-gray-500 bg-[#111] px-3 py-1.5 rounded-lg border border-[#333]">
                <span>ESC</span>
             </div>
           </div>
@@ -97,48 +97,48 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean, onCl
             {loading && allProducts.length === 0 ? (
                <div className="p-8 text-center text-gray-400">
                   <div className="animate-spin w-6 h-6 border-2 border-accent border-t-transparent rounded-full mx-auto mb-4" />
-                  <p className="text-[10px] font-black uppercase tracking-widest">Loading Catalog</p>
+                  <p className="font-impact text-xs uppercase tracking-widest text-gray-500">Loading Catalog</p>
                </div>
             ) : query.trim() !== '' && results.length === 0 ? (
-              <div className="p-12 text-center text-gray-400">
-                <Package className="w-12 h-12 mx-auto mb-4 text-gray-200" />
-                <p className="text-sm font-medium">No results found for "{query}"</p>
+              <div className="p-12 text-center text-gray-500">
+                <Package className="w-12 h-12 mx-auto mb-4 text-[#333]" />
+                <p className="text-sm font-sans">No results found for "{query}"</p>
               </div>
             ) : results.length > 0 ? (
               <div className="space-y-2">
-                <p className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-gray-400">Products</p>
+                <p className="px-4 py-2 font-impact text-xs uppercase tracking-widest text-gray-500">Products</p>
                 {results.map((product) => (
                   <button
                     key={product.id}
                     onClick={() => {
                       onClose();
-                      router.push(`/shop/${product.id}`);
+                      router.push(`/product/${product.id}`);
                     }}
-                    className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 transition-colors group text-left"
+                    className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-[#111] transition-colors group text-left border border-transparent hover:border-[#333]"
                   >
                     <div className="flex items-center gap-4">
-                       <div className="relative w-12 h-16 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
-                          {product.imageUrls?.[0] ? (
-                            <Image src={product.imageUrls[0]} alt={product.title} fill className="object-cover" />
+                       <div className="relative w-12 h-16 rounded-xl overflow-hidden bg-[#222] flex-shrink-0">
+                          {product.image ? (
+                            <Image src={product.image} alt={product.title} fill className="object-cover" />
                           ) : (
-                             <div className="w-full h-full bg-gray-200" />
+                             <div className="w-full h-full bg-[#222]" />
                           )}
                        </div>
                        <div>
-                         <h4 className="text-sm font-black uppercase tracking-tight">{product.title}</h4>
-                         <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{product.category}</p>
+                         <h4 className="font-impact text-sm uppercase tracking-wider text-white">{product.title}</h4>
+                         <p className="font-sans text-xs text-gray-500">{product.category}</p>
                        </div>
                     </div>
                     <div className="flex items-center gap-4">
-                       <span className="text-xs font-black italic text-gray-500">{formatPrice(product.price)}</span>
-                       <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-black group-hover:translate-x-1 transition-all" />
+                       <span className="font-impact text-lg text-accent tracking-widest">{formatPrice(product.price)}</span>
+                       <ArrowRight className="w-5 h-5 text-gray-600 group-hover:text-accent group-hover:translate-x-1 transition-all" />
                     </div>
                   </button>
                 ))}
               </div>
             ) : (
               <div className="p-8 text-center">
-                <p className="text-[10px] font-black uppercase tracking-widest text-gray-300">
+                <p className="font-impact text-xs uppercase tracking-widest text-gray-500">
                   Try searching for "Jellaba", "Caftan", or specific colors.
                 </p>
               </div>

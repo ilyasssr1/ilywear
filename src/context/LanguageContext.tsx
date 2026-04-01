@@ -15,9 +15,9 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const LANGUAGE_FLAGS: Record<Language, string> = {
-  en: '🇬🇧',
-  ar: '🇲🇦',
-  fr: '🇫🇷',
+  en: 'EN',
+  ar: 'AR',
+  fr: 'FR',
 };
 
 export { LANGUAGE_FLAGS };

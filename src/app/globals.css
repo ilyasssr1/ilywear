@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,8 @@
 
 @layer base {
   body {
-    @apply bg-white text-primary font-sans antialiased overflow-x-hidden;
+    @apply bg-[#0A0A0A] text-white font-sans antialiased overflow-x-hidden;
+    color-scheme: dark;
   }
 
   /* RTL Support */
@@ -132,8 +133,8 @@
   }
 
   @keyframes glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); }
-    50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.3); }
+    0%, 100% { box-shadow: 0 0 20px rgba(204, 255, 0, 0.15); }
+    50% { box-shadow: 0 0 40px rgba(204, 255, 0, 0.3); }
   }
 
   @keyframes gradient-shift {
@@ -174,7 +175,7 @@
 
   /* Gradient Text */
   .gradient-text {
-    background: linear-gradient(135deg, #D4AF37 0%, #F5E6A3 50%, #D4AF37 100%);
+    background: linear-gradient(135deg, #ccff00 0%, #e6ff66 50%, #ccff00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

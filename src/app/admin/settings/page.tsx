@@ -56,34 +56,34 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-12">
       <div>
-        <h2 className="text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-4">Store Configuration</h2>
-        <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-none">Settings</h1>
+        <h2 className="text-accent font-impact text-sm uppercase tracking-[0.3em] mb-4">Store Configuration</h2>
+        <h1 className="text-5xl font-impact tracking-wider uppercase leading-none text-white">Settings</h1>
       </div>
 
       <form onSubmit={handleSave} className="grid grid-cols-1 xl:grid-cols-3 gap-12">
         <div className="xl:col-span-2 space-y-8">
           {/* General Section */}
-          <section className="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-sm space-y-8">
+          <section className="bg-[#0A0A0A] p-10 rounded-3xl border border-[#222] space-y-8">
             <div className="flex items-center gap-4 mb-2">
-               <div className="p-3 bg-gray-50 rounded-2xl">
-                  <Globe className="w-5 h-5 text-primary" />
+               <div className="p-3 bg-[#1a1a1a] rounded-2xl">
+                  <Globe className="w-5 h-5 text-accent" />
                </div>
-               <h3 className="text-lg font-black uppercase tracking-tight">General Store Info</h3>
+               <h3 className="text-lg font-impact uppercase tracking-wider text-white">General Store Info</h3>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Store Name</label>
+                  <label className="font-impact text-sm uppercase tracking-widest text-gray-500">Store Name</label>
                   <input 
-                    className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                    className="w-full bg-[#111] border border-[#222] rounded-xl py-4 px-6 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                     value={settings.store_name}
                     onChange={e => setSettings({...settings, store_name: e.target.value})}
                   />
                </div>
                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Contact Email</label>
+                  <label className="font-impact text-sm uppercase tracking-widest text-gray-500">Contact Email</label>
                   <input 
-                    className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                    className="w-full bg-[#111] border border-[#222] rounded-xl py-4 px-6 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                     value={settings.contact_email}
                     onChange={e => setSettings({...settings, contact_email: e.target.value})}
                   />
@@ -91,9 +91,9 @@ export default function AdminSettingsPage() {
             </div>
 
             <div className="space-y-2">
-               <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Announcement Banner Text</label>
+               <label className="font-impact text-sm uppercase tracking-widest text-gray-500">Announcement Banner Text</label>
                <input 
-                className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                className="w-full bg-[#111] border border-[#222] rounded-xl py-4 px-6 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                 value={settings.announcement_text}
                 onChange={e => setSettings({...settings, announcement_text: e.target.value})}
                />
@@ -101,19 +101,19 @@ export default function AdminSettingsPage() {
           </section>
 
           {/* Social & Contact */}
-          <section className="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-sm space-y-8">
+          <section className="bg-[#0A0A0A] p-10 rounded-3xl border border-[#222] space-y-8">
             <div className="flex items-center gap-4 mb-2">
-               <div className="p-3 bg-green-50 rounded-2xl">
-                  <Smartphone className="w-5 h-5 text-green-600" />
+               <div className="p-3 bg-green-500/10 border border-green-500/20 rounded-2xl">
+                  <Smartphone className="w-5 h-5 text-green-500" />
                </div>
-               <h3 className="text-lg font-black uppercase tracking-tight">Contact & Social</h3>
+               <h3 className="text-lg font-impact uppercase tracking-wider text-white">Contact & Social</h3>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">WhatsApp Number</label>
+                  <label className="font-impact text-sm uppercase tracking-widest text-gray-500">WhatsApp Number</label>
                   <input 
-                    className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                    className="w-full bg-[#111] border border-[#222] rounded-xl py-4 px-6 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                     value={settings.whatsapp_number}
                     onChange={e => setSettings({...settings, whatsapp_number: e.target.value})}
                   />
@@ -124,12 +124,12 @@ export default function AdminSettingsPage() {
 
         <div className="space-y-8">
           {/* Status Card */}
-          <section className="bg-black text-white p-10 rounded-[3rem] shadow-2xl relative overflow-hidden">
+          <section className="bg-[#0A0A0A] border border-accent/20 p-10 rounded-3xl shadow-2xl relative overflow-hidden">
              <div className="relative z-10">
                 <Shield className="w-10 h-10 text-accent mb-6" />
-                <h3 className="text-xl font-black italic mb-4 uppercase tracking-tighter">Site Status</h3>
-                <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
-                   <span className="text-xs font-bold uppercase tracking-widest">Maintenance Mode</span>
+                <h3 className="text-xl font-impact text-white mb-4 uppercase tracking-wider">Site Status</h3>
+                <div className="flex items-center justify-between p-4 bg-[#111] rounded-xl border border-[#222]">
+                   <span className="text-xs font-impact uppercase tracking-widest text-white">Maintenance Mode</span>
                    <button 
                     type="button"
                     onClick={() => setSettings({...settings, maintenance_mode: !settings.maintenance_mode})}
@@ -146,10 +146,10 @@ export default function AdminSettingsPage() {
           <button 
             type="submit"
             disabled={saving}
-            className="w-full bg-black text-white py-8 rounded-[2.5rem] font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-accent transition-all duration-500 shadow-2xl shadow-black/20 group hover:-translate-y-1"
+            className="w-full bg-accent text-secondary py-8 rounded-xl font-impact text-xl uppercase tracking-wider flex items-center justify-center gap-4 hover:bg-white transition-all duration-500 shadow-2xl shadow-accent/20 group hover:-translate-y-1 glow-effect"
           >
             {saving ? (
-              <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+              <div className="animate-spin w-5 h-5 border-2 border-secondary border-t-transparent rounded-full" />
             ) : (
               <>
                 <Save className="w-5 h-5 group-hover:scale-110 transition-transform" />

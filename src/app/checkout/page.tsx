@@ -8,9 +8,10 @@ import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { ShoppingBag, ArrowRight, MapPin, Phone, User, CheckCircle2, Truck, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import { fetchProducts, createOrder } from '@/services/products';
+import { createOrder } from '@/services/products';
 import { useLanguage } from '@/context/LanguageContext';
 import { useCurrency } from '@/context/CurrencyContext';
+import { useSettings } from '@/context/SettingsContext';
 
 export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useCart();
@@ -19,6 +20,7 @@ export default function CheckoutPage() {
   const [user, setUser] = useState<any>(null);
   const { t, isRTL } = useLanguage();
   const { formatPrice } = useCurrency();
+  const { whatsappNumber } = useSettings();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -30,13 +32,13 @@ export default function CheckoutPage() {
     return (
       <>
         <Header />
-        <main className="flex-1 bg-white flex flex-col items-center justify-center py-32 px-6">
-          <div className="w-20 h-20 rounded-full bg-gray-50 flex items-center justify-center mb-8">
-            <ShoppingBag className="w-8 h-8 text-gray-200" />
+        <main className="flex-1 bg-[#0A0A0A] flex flex-col items-center justify-center py-32 px-6">
+          <div className="w-24 h-24 rounded-full bg-[#111111] border border-[#333] flex items-center justify-center mb-8">
+            <ShoppingBag className="w-10 h-10 text-accent" />
           </div>
-          <h1 className="text-3xl font-black uppercase tracking-tighter italic mb-4">{t('your_bag_empty')}</h1>
-          <p className="text-gray-400 text-sm font-medium mb-10">{t('add_premium')}</p>
-          <Link href="/shop" className="bg-black text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-accent transition-all duration-500 shadow-2xl shadow-black/10">
+          <h1 className="font-impact text-4xl uppercase tracking-wider text-white mb-4">{t('your_bag_empty')}</h1>
+          <p className="text-gray-400 font-sans text-sm font-medium mb-10">{t('add_premium')}</p>
+          <Link href="/shop" className="bg-accent text-secondary px-10 py-5 rounded-md font-impact text-xl uppercase tracking-wider hover:bg-white transition-all duration-500 glow-effect block">
             {t('go_to_shop')}
           </Link>
         </main>
@@ -66,6 +68,7 @@ export default function CheckoutPage() {
 
   const [loading, setLoading] = useState(false);
   const [lastOrderId, setLastOrderId] = useState<string | null>(null);
+  const [lastTotal, setLastTotal] = useState<number>(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,14 +89,34 @@ export default function CheckoutPage() {
       if (!result) throw new Error('Failed to save order to database');
 
       setLastOrderId(result.id.toString());
+      setLastTotal(cartTotal);
       
-      const adminPhone = "+212600000000"; 
-      const apiKey = "123456"; 
       const notificationText = `🚀 *New Order Alert!*%0A%0A*Order ID:* ${result.id}%0A*Customer:* ${formData.name}%0A*Total:* ${cartTotal} MAD%0A%0A_Check dashboard for details._`;
       
       try {
-        fetch(`https://api.callmebot.com/whatsapp.php?phone=${adminPhone}&text=${notificationText}&apikey=${apiKey}`, { mode: 'no-cors' });
+        fetch(`https://api.callmebot.com/whatsapp.php?phone=+${whatsappNumber}&text=${notificationText}&apikey=123456`, { mode: 'no-cors' });
       } catch (e) {}
+
+      // Fire Pixel Tracking Events
+      if (typeof window !== 'undefined') {
+        const w = window as any;
+        if (w.fbq) {
+          w.fbq('track', 'Purchase', {
+            value: cartTotal,
+            currency: 'MAD',
+            contents: cart.map(item => ({ id: item.id, quantity: item.quantity })),
+            content_type: 'product'
+          });
+        }
+        if (typeof w.ttq !== 'undefined' && w.ttq.track) {
+          w.ttq.track('CompletePayment', {
+            value: cartTotal,
+            currency: 'MAD',
+            contents: cart.map(item => ({ content_id: item.id.toString(), quantity: item.quantity, price: item.price })),
+            content_type: 'product'
+          });
+        }
+      }
 
       setIsSubmitted(true);
       clearCart();
@@ -109,19 +132,19 @@ export default function CheckoutPage() {
     return (
       <>
         <Header />
-        <main className="flex-1 bg-white flex flex-col items-center justify-center py-24 px-6">
-          <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center mb-8 animate-scale-in">
-            <CheckCircle2 className="w-8 h-8 text-green-500" />
+        <main className="flex-1 bg-[#0A0A0A] flex flex-col items-center justify-center py-24 px-6">
+          <div className="w-24 h-24 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-8 animate-scale-in glow-effect-green">
+            <CheckCircle2 className="w-12 h-12 text-green-500" />
           </div>
-          <h1 className="text-4xl font-black uppercase tracking-tighter italic mb-4">{t('order_received')}</h1>
-          <p className="text-gray-400 text-center text-sm font-medium max-w-md mb-8">
+          <h1 className="font-impact text-5xl md:text-6xl text-white uppercase tracking-wider mb-4">{t('order_received')}</h1>
+          <p className="text-gray-400 font-sans text-center text-sm max-w-md mb-8">
             {t('order_thanks')}
           </p>
           
-          <div className="bg-gray-50 border border-gray-100 rounded-3xl p-8 mb-12 w-full max-w-sm text-center">
-            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">{t('your_order_id')}</p>
+          <div className="bg-[#111111] border border-[#333] rounded-3xl p-8 mb-12 w-full max-w-sm text-center">
+            <p className="font-impact text-sm uppercase tracking-widest text-gray-500 mb-2">{t('your_order_id')}</p>
             <div className="flex items-center justify-center gap-3">
-              <code className="text-lg font-black tracking-widest text-primary bg-white px-4 py-2 rounded-xl border border-gray-100">
+              <code className="text-xl font-impact tracking-widest text-white bg-[#222] px-6 py-3 rounded-xl border border-[#333]">
                 {lastOrderId?.substring(0, 8)}
               </code>
               <button 
@@ -129,22 +152,22 @@ export default function CheckoutPage() {
                   if (lastOrderId) navigator.clipboard.writeText(lastOrderId);
                   alert(t('order_id_copied'));
                 }}
-                className="text-[10px] font-black uppercase tracking-widest text-accent hover:underline"
+                className="font-impact text-sm uppercase tracking-widest text-accent hover:underline hover:text-white"
               >
                 {t('copy')}
               </button>
             </div>
-            <p className="mt-4 text-[11px] font-black text-primary uppercase italic">Total: {formatPrice(cartTotal)}</p>
-            <p className="mt-6 text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
-              {t('use_id_tracking')} <Link href="/track-order" className="text-primary underline">{t('tracking_page')}</Link>
+            <p className="mt-6 font-impact text-2xl text-accent uppercase tracking-wider">Total: {formatPrice(lastTotal)}</p>
+            <p className="mt-8 font-sans text-xs text-gray-400 leading-relaxed">
+              {t('use_id_tracking')} <Link href="/track-order" className="text-white font-bold hover:text-accent transition-colors">{t('tracking_page')}</Link>
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/track-order" className="bg-black text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-accent transition-all duration-500 shadow-2xl shadow-black/10 flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto max-w-[400px]">
+            <Link href="/track-order" className="flex-1 bg-accent text-secondary px-8 py-5 rounded-md font-impact text-xl uppercase tracking-wider hover:bg-white transition-all duration-500 glow-effect flex items-center justify-center text-center">
               {t('track_order_now')}
             </Link>
-            <Link href="/" className="bg-white border border-gray-100 text-primary px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-gray-50 transition-all duration-500">
+            <Link href="/" className="flex-1 bg-transparent border border-[#333] text-gray-400 px-8 py-5 rounded-md font-impact text-xl uppercase tracking-wider hover:bg-[#111] hover:text-white transition-all duration-500 flex justify-center text-center items-center">
               {t('return_home')}
             </Link>
           </div>
@@ -157,41 +180,41 @@ export default function CheckoutPage() {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-white py-16 md:py-24">
+      <main className="flex-1 bg-[#0A0A0A] py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20">
             
             {/* Left: Form */}
             <div className="flex-1">
               <div className="mb-12">
-                <span className="text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-4 inline-block">{t('final_step')}</span>
-                <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-none mb-6">{t('complete_order')}</h1>
-                <p className="text-gray-400 text-sm font-medium">{t('checkout_subtitle')}</p>
+                <span className="text-accent text-sm font-impact uppercase tracking-widest mb-4 inline-block">{t('final_step')}</span>
+                <h1 className="text-6xl md:text-8xl font-impact tracking-normal text-white uppercase leading-[0.9] mb-6">{t('complete_order')}</h1>
+                <p className="text-gray-400 font-sans text-sm">{t('checkout_subtitle')}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
-                       <User className="w-3 h-3" /> {t('full_name')}
+                    <label className="font-impact text-sm uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                       <User className="w-4 h-4" /> {t('full_name')}
                     </label>
                     <input
                       required
                       placeholder={isRTL ? 'مثال: ياسين إيلي' : 'e.g. Yassine Ily'}
-                      className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                      className="w-full bg-[#111111] border border-[#333] rounded-xl py-4 px-6 text-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
-                       <Phone className="w-3 h-3" /> {t('whatsapp_phone_label')}
+                    <label className="font-impact text-sm uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                       <Phone className="w-4 h-4" /> {t('whatsapp_phone_label')}
                     </label>
                     <input
                       required
                       type="tel"
                       placeholder="e.g. 06..."
-                      className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                      className="w-full bg-[#111111] border border-[#333] rounded-xl py-4 px-6 text-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     />
@@ -200,68 +223,68 @@ export default function CheckoutPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
-                       <MapPin className="w-3 h-3" /> {t('city')}
+                    <label className="font-impact text-sm uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                       <MapPin className="w-4 h-4" /> {t('city')}
                     </label>
                     <input
                       required
                       placeholder={isRTL ? 'مثال: الدار البيضاء' : 'e.g. Casablanca'}
-                      className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                      className="w-full bg-[#111111] border border-[#333] rounded-xl py-4 px-6 text-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     />
                   </div>
                   <div className="space-y-2 flex-1">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
-                       <MapPin className="w-3 h-3" /> {t('shipping_address')}
+                    <label className="font-impact text-sm uppercase tracking-widest text-gray-500 flex items-center gap-2">
+                       <MapPin className="w-4 h-4" /> {t('shipping_address')}
                     </label>
                     <input
                       required
                       placeholder={isRTL ? 'اسم الشارع، الشقة، المنطقة...' : 'Street name, apartment, area...'}
-                      className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                      className="w-full bg-[#111111] border border-[#333] rounded-xl py-4 px-6 text-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                       value={formData.address}
                       onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     />
                   </div>
                 </div>
 
-                <div className="pt-8 border-t border-gray-50">
+                <div className="pt-8 border-t border-[#333]">
                    <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-black text-white py-6 rounded-3xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-between px-10 hover:bg-accent transition-all duration-500 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] group disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-accent text-secondary py-6 rounded-md font-impact text-2xl uppercase tracking-wider flex items-center justify-center gap-3 hover:bg-white transition-all duration-500 glow-effect group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <span className="flex items-center gap-3">
-                        <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+                        <div className="animate-spin w-5 h-5 border-2 border-secondary border-t-transparent rounded-full" />
                         {t('processing')}
                       </span>
                     ) : (
                       <>
                         {t('confirm_send')}
-                        <ArrowRight className={`w-5 h-5 group-hover:translate-x-2 transition-transform ${isRTL ? 'rotate-180 group-hover:-translate-x-2' : ''}`} />
+                        <ArrowRight className={`w-6 h-6 group-hover:translate-x-2 transition-transform ${isRTL ? 'rotate-180 group-hover:-translate-x-2' : ''}`} />
                       </>
                     )}
                   </button>
                   
-                  <div className="flex items-center justify-center gap-6 mt-8 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-                    <div className="flex items-center gap-2 opacity-60 grayscale hover:grayscale-0 transition-all">
-                      <ShieldCheck className="w-5 h-5 text-green-600" />
-                      <span className="text-[10px] font-black uppercase tracking-widest">{t('ssl_secure')}</span>
+                  <div className="flex items-center justify-center gap-6 mt-8 p-6 bg-[#111111] rounded-2xl border border-[#333]">
+                    <div className="flex items-center gap-2 transition-all">
+                      <ShieldCheck className="w-6 h-6 text-accent" />
+                      <span className="font-impact text-xs uppercase tracking-widest text-gray-400 hidden sm:inline-block">{t('ssl_secure')}</span>
                     </div>
-                    <div className="w-[1px] h-4 bg-gray-200" />
-                    <div className="flex items-center gap-2 opacity-60 grayscale hover:grayscale-0 transition-all">
-                      <Truck className="w-5 h-5" />
-                      <span className="text-[10px] font-black uppercase tracking-widest">{t('fast_shipping')}</span>
+                    <div className="w-[1px] h-6 bg-[#333]" />
+                    <div className="flex items-center gap-2 transition-all">
+                      <Truck className="w-6 h-6 text-accent" />
+                      <span className="font-impact text-xs uppercase tracking-widest text-gray-400 hidden sm:inline-block">{t('fast_shipping')}</span>
                     </div>
-                    <div className="w-[1px] h-4 bg-gray-200" />
-                    <div className="flex items-center gap-2 opacity-60 grayscale hover:grayscale-0 transition-all">
-                      <CheckCircle2 className="w-5 h-5" />
-                      <span className="text-[10px] font-black uppercase tracking-widest">{t('premium_quality')}</span>
+                    <div className="w-[1px] h-6 bg-[#333]" />
+                    <div className="flex items-center gap-2 transition-all">
+                      <CheckCircle2 className="w-6 h-6 text-accent" />
+                      <span className="font-impact text-xs uppercase tracking-widest text-gray-400 hidden sm:inline-block">{t('premium_quality')}</span>
                     </div>
                   </div>
 
-                  <p className="text-center text-[10px] font-black italic text-accent uppercase tracking-widest mt-6">
+                  <p className="text-center font-impact text-sm text-accent uppercase tracking-widest mt-6 bg-[#111] py-3 rounded-lg border border-accent/20 shadow-[0_0_15px_rgba(204,255,0,0.1)]">
                     {t('payment_cod')}
                   </p>
                 </div>
@@ -270,43 +293,46 @@ export default function CheckoutPage() {
 
             {/* Right: Summary */}
             <div className="lg:w-[400px]">
-              <div className="bg-[#FBFBFB] border border-gray-100 rounded-[2.5rem] p-10 sticky top-32">
-                <h3 className="text-xl font-black uppercase tracking-tighter italic mb-8">{t('order_summary')}</h3>
+              <div className="bg-[#111111] border border-[#333] rounded-3xl p-10 sticky top-32">
+                <h3 className="font-impact text-3xl uppercase tracking-wider text-white mb-8">{t('order_summary')}</h3>
                 
                 <div className="space-y-6 mb-10 max-h-[400px] overflow-y-auto scrollbar-hide">
                   {cart.map((item, idx) => (
                     <div key={idx} className="flex gap-4">
-                      <div className="relative w-16 h-20 rounded-xl overflow-hidden bg-white flex-shrink-0">
+                      <div className="relative w-20 h-24 rounded-lg overflow-hidden bg-[#222] flex-shrink-0">
                         <Image src={item.image} alt={item.title} fill className="object-cover" />
                       </div>
-                      <div className="flex-1">
-                        <h4 className="text-[11px] font-black uppercase tracking-tight text-primary leading-tight mb-1">{item.title}</h4>
-                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                          {item.selectedSize} | {item.quantity} x {formatPrice(item.price)}
+                      <div className="flex-1 flex flex-col justify-center">
+                        <h4 className="font-impact text-lg uppercase tracking-wide text-white leading-tight mb-2">{item.title}</h4>
+                        <p className="font-sans text-xs font-medium text-gray-500 mb-1">
+                          {item.selectedSize} | Qty: {item.quantity}
+                        </p>
+                        <p className="font-impact text-xl text-accent">
+                          {formatPrice(item.price)}
                         </p>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="space-y-4 pt-8 border-t border-gray-100">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-400 font-medium">{t('subtotal')}</span>
-                    <span className="font-bold">{formatPrice(cartTotal)}</span>
+                <div className="space-y-4 pt-8 border-t border-[#333]">
+                  <div className="flex justify-between items-center text-sm font-impact text-gray-400 uppercase tracking-widest">
+                    <span>{t('subtotal')}</span>
+                    <span>{formatPrice(cartTotal)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-400 font-medium">{t('shipping')}</span>
-                    <span className="text-green-500 font-bold uppercase tracking-widest text-[10px]">{t('free')}</span>
+                  <div className="flex justify-between items-center text-sm font-impact text-gray-400 uppercase tracking-widest">
+                    <span>{t('shipping')}</span>
+                    <span className="text-accent">{t('free')}</span>
                   </div>
-                  <div className="flex justify-between items-end pt-4">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-primary">{t('total_to_pay')}</span>
-                    <span className="text-3xl font-black italic">{formatPrice(cartTotal)}</span>
+                  <div className="flex justify-between items-end pt-6 border-t border-[#333]">
+                    <span className="font-impact text-lg text-white uppercase tracking-wider">{t('total_to_pay')}</span>
+                    <span className="font-impact text-4xl text-accent">{formatPrice(cartTotal)}</span>
                   </div>
                 </div>
 
-                <div className="mt-8 p-4 bg-green-50 rounded-2xl border border-green-100">
-                   <p className="text-[10px] text-green-700 font-bold flex items-center gap-2">
-                     <CheckCircle2 className="w-3 h-3" /> {t('fast_shipping')}
+                <div className="mt-8 p-4 bg-accent/10 rounded-xl border border-accent/20">
+                   <p className="text-xs text-accent font-impact uppercase tracking-widest flex items-center justify-center gap-2">
+                     <CheckCircle2 className="w-4 h-4" /> {t('fast_shipping')}
                    </p>
                 </div>
               </div>

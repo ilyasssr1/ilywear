@@ -36,7 +36,7 @@ export default function ShopPage() {
       // Advanced Filters
       if (selectedSize) data = data.filter(p => p.sizes?.includes(selectedSize));
       if (selectedColor) data = data.filter(p => p.colors?.includes(selectedColor));
-      if (inStockOnly) data = data.filter(p => p.stock && p.stock > 0);
+      if (inStockOnly) data = data.filter(p => p.stock !== 0);
 
       if (priceRange === '0-200') data = data.filter(p => p.price <= 200);
       else if (priceRange === '200-500') data = data.filter(p => p.price > 200 && p.price <= 500);
@@ -55,20 +55,21 @@ export default function ShopPage() {
   const categoryLabels: Record<string, string> = {
     women: t('women'),
     men: t('men'),
+    boys: t('boys'),
     promotions: t('promotions'),
   };
 
   return (
     <>
       <Header />
-      <main className="flex-1 bg-white min-h-screen">
+      <main className="flex-1 bg-[#0A0A0A] min-h-screen">
         <div className="container mx-auto px-6 py-12">
           <div className="flex flex-col gap-12 mb-16">
             <ScrollReveal>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                  <span className="text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-3 inline-block">{t('explore')}</span>
-                  <h1 className="text-5xl font-black tracking-tighter uppercase italic leading-none">
+                  <span className="text-accent text-sm font-impact uppercase tracking-widest mb-3 inline-block">{t('explore')}</span>
+                  <h1 className="text-6xl md:text-8xl font-impact tracking-normal text-white uppercase leading-[0.9]">
                     {category ? categoryLabels[category] || category : t('the_collection')}
                   </h1>
                 </div>
@@ -78,27 +79,28 @@ export default function ShopPage() {
               </div>
             </ScrollReveal>
             
-            <div className="flex flex-wrap gap-6 items-start border-b border-gray-100 pb-10">
+            <div className="flex flex-wrap gap-6 items-start border-b border-[#333] pb-10">
               <div className="flex-1 min-w-[300px]">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4 block">{t('collections')}</span>
+                <span className="text-sm font-impact uppercase tracking-widest text-gray-500 mb-4 block">{t('collections')}</span>
                 <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1">
                   {[
                     { label: t('all_items'), href: '/shop' },
                     { label: t('women'), href: '/shop?category=women' },
                     { label: t('men'), href: '/shop?category=men' },
+                    { label: t('boys'), href: '/shop?category=boys' },
                     { label: t('promotions'), href: '/shop?category=promotions', accent: true }
                   ].map((filter) => (
                     <Link 
                       key={filter.href}
                       href={filter.href} 
-                      className={`px-8 py-3 rounded-2xl text-[10px] uppercase font-black tracking-widest transition-all border whitespace-nowrap ${
+                      className={`px-8 py-3 rounded-md text-sm uppercase font-impact tracking-wider transition-all border whitespace-nowrap glow-effect ${
                         (!category && filter.label === t('all_items')) || category === filter.href.split('=')[1]
-                        ? 'bg-black text-white border-black shadow-2xl shadow-black/20 scale-105' 
+                        ? 'bg-accent text-secondary border-accent shadow-2xl scale-105' 
                         : filter.accent && category === 'promotions'
-                        ? 'bg-accent text-white border-accent shadow-2xl shadow-accent/20 scale-105'
+                        ? 'bg-accent text-secondary border-accent shadow-2xl scale-105'
                         : filter.accent
-                        ? 'text-accent border-accent/20 hover:bg-accent hover:text-white'
-                        : 'text-gray-400 border-gray-100 hover:border-black hover:text-black'
+                        ? 'text-accent border-accent/20 hover:bg-accent hover:text-secondary'
+                        : 'text-gray-400 border-[#333] hover:border-accent hover:text-white'
                       }`}
                     >
                       {filter.label}
@@ -108,7 +110,7 @@ export default function ShopPage() {
               </div>
 
               <div className="w-full md:w-auto">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4 block">{t('sort_by')}</span>
+                <span className="text-sm font-impact uppercase tracking-widest text-gray-500 mb-4 block">{t('sort_by')}</span>
                 <div className="flex gap-2">
                   {[
                     { label: t('price_low_high'), value: 'price-asc' },
@@ -118,10 +120,10 @@ export default function ShopPage() {
                     <Link
                       key={s.value}
                       href={`/shop?${category ? `category=${category}&` : ''}${query ? `q=${query}&` : ''}sort=${s.value}`}
-                      className={`px-5 py-3 rounded-2xl text-[9px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${
+                      className={`px-6 py-3 rounded-md text-sm font-impact uppercase tracking-wider border transition-all whitespace-nowrap ${
                         sort === s.value 
-                        ? 'bg-primary text-white border-primary shadow-lg' 
-                        : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300'
+                        ? 'bg-white text-secondary border-white shadow-lg' 
+                        : 'bg-transparent text-gray-500 border-[#333] hover:border-white hover:text-white'
                       }`}
                     >
                       {s.label}
@@ -134,9 +136,9 @@ export default function ShopPage() {
             <div className="flex flex-wrap items-center gap-x-12 gap-y-8">
               {/* Price Filter */}
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2 text-gray-400">
+                <div className="flex items-center gap-2 text-gray-500">
                   <SlidersHorizontal className="w-4 h-4" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t('price_range')}</span>
+                  <span className="text-sm font-impact uppercase tracking-widest">{t('price_range')}</span>
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   {[
@@ -148,10 +150,10 @@ export default function ShopPage() {
                     <button
                       key={range.value}
                       onClick={() => setPriceRange(range.value)}
-                      className={`px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${
+                      className={`px-5 py-2.5 rounded-md text-sm font-impact uppercase tracking-wider border transition-all whitespace-nowrap ${
                         priceRange === range.value
-                        ? 'bg-accent text-white border-accent shadow-lg shadow-accent/20'
-                        : 'bg-white text-gray-400 border-gray-100 hover:border-accent hover:text-accent'
+                        ? 'bg-accent text-secondary border-accent shadow-lg glow-effect'
+                        : 'bg-transparent text-gray-500 border-[#333] hover:border-accent hover:text-accent'
                       }`}
                     >
                       {range.label}
@@ -162,18 +164,18 @@ export default function ShopPage() {
 
               {/* Size Filter */}
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2 text-gray-400">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t('size')}</span>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <span className="text-sm font-impact uppercase tracking-widest">{t('size')}</span>
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   {['S', 'M', 'L', 'XL', 'XXL'].map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(selectedSize === size ? '' : size)}
-                      className={`w-10 h-10 rounded-xl text-[9px] font-black border transition-all ${
+                      className={`w-10 h-10 rounded-md text-sm font-impact border transition-all ${
                         selectedSize === size
-                        ? 'bg-black text-white border-black shadow-lg shadow-black/20'
-                        : 'bg-white text-gray-400 border-gray-100 hover:border-black hover:text-black'
+                        ? 'bg-accent text-secondary border-accent shadow-lg glow-effect'
+                        : 'bg-transparent text-gray-500 border-[#333] hover:border-white hover:text-white'
                       }`}
                     >
                       {size}
@@ -184,8 +186,8 @@ export default function ShopPage() {
 
               {/* Color Filter */}
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2 text-gray-400">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t('color')}</span>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <span className="text-sm font-impact uppercase tracking-widest">{t('color')}</span>
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   {['#000000', '#FFFFFF', '#D4AF37', '#94A3B8'].map((color) => (
@@ -194,8 +196,8 @@ export default function ShopPage() {
                       onClick={() => setSelectedColor(selectedColor === color ? '' : color)}
                       className={`w-8 h-8 rounded-full border-2 transition-all ${
                         selectedColor === color
-                        ? 'scale-125 border-accent shadow-lg ring-2 ring-accent/20 ring-offset-2'
-                        : 'border-white shadow-sm hover:scale-110'
+                        ? 'scale-125 border-accent shadow-lg ring-2 ring-accent/20 ring-offset-2 ring-offset-[#0A0A0A]'
+                        : 'border-[#333] shadow-sm hover:scale-110'
                       }`}
                       style={{ backgroundColor: color }}
                     />
@@ -205,8 +207,8 @@ export default function ShopPage() {
 
               {/* Availability Filter */}
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2 text-gray-400">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t('availability')}</span>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <span className="text-sm font-impact uppercase tracking-widest">{t('availability')}</span>
                 </div>
                 <button
                   onClick={() => setInStockOnly(!inStockOnly)}
@@ -215,7 +217,7 @@ export default function ShopPage() {
                   <div className={`w-10 h-6 rounded-full p-1 transition-all duration-300 ${inStockOnly ? 'bg-green-500' : 'bg-gray-200'}`}>
                     <div className={`w-4 h-4 bg-white rounded-full transition-all duration-300 ${inStockOnly ? 'translate-x-4' : 'translate-x-0'}`} />
                   </div>
-                  <span className={`text-[10px] font-black uppercase tracking-widest transition-colors ${inStockOnly ? 'text-green-500' : 'text-gray-400 group-hover:text-black'}`}>
+                  <span className={`text-sm font-impact uppercase tracking-widest transition-colors ${inStockOnly ? 'text-green-500' : 'text-gray-500 group-hover:text-white'}`}>
                     {t('in_stock_only')}
                   </span>
                 </button>
@@ -226,12 +228,12 @@ export default function ShopPage() {
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <div key={i} className="animate-pulse rounded-3xl overflow-hidden">
-                  <div className="aspect-[3/4] bg-gray-100 rounded-3xl" />
+                <div key={i} className="animate-pulse flex flex-col overflow-hidden bg-[#111111] border border-[#333] rounded-3xl">
+                  <div className="aspect-[3/4] bg-[#222222]" />
                   <div className="p-5 space-y-3">
-                    <div className="h-3 w-16 bg-gray-100 rounded" />
-                    <div className="h-4 w-32 bg-gray-100 rounded" />
-                    <div className="h-5 w-20 bg-gray-100 rounded" />
+                    <div className="h-3 w-16 bg-[#333] rounded" />
+                    <div className="h-4 w-32 bg-[#333] rounded" />
+                    <div className="h-5 w-20 bg-[#333] rounded" />
                   </div>
                 </div>
               ))}
@@ -245,12 +247,12 @@ export default function ShopPage() {
               ))}
             </div>
           ) : (
-            <div className="py-32 text-center flex flex-col items-center bg-gray-50 rounded-[3rem] border border-dashed border-gray-200">
-              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-sm mb-6">
-                <Search className="w-8 h-8 text-gray-200" />
+            <div className="py-32 text-center flex flex-col items-center bg-[#111111] rounded-[2rem] border border-dashed border-[#333]">
+              <div className="w-20 h-20 rounded-full bg-[#222] flex items-center justify-center shadow-sm mb-6">
+                <Search className="w-8 h-8 text-gray-500" />
               </div>
-              <h3 className="text-2xl font-black tracking-tighter uppercase italic text-primary mb-3">{t('no_pieces_found')}</h3>
-              <p className="text-gray-500 font-medium max-w-xs mx-auto text-sm leading-relaxed">{t('no_pieces_desc')}</p>
+              <h3 className="text-4xl font-impact tracking-wider uppercase text-white mb-3">{t('no_pieces_found')}</h3>
+              <p className="text-gray-400 font-sans max-w-xs mx-auto text-sm leading-relaxed">{t('no_pieces_desc')}</p>
               <button
                 onClick={() => {
                   setPriceRange('all');
@@ -258,7 +260,7 @@ export default function ShopPage() {
                   setSelectedColor('');
                   setInStockOnly(false);
                 }}
-                className="mt-8 bg-black text-white px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-accent transition-all"
+                className="mt-8 bg-accent text-secondary px-10 py-4 rounded-md font-impact text-xl uppercase tracking-wider hover:bg-white hover:text-secondary transition-all glow-effect"
               >
                 {t('reset_filters')}
               </button>

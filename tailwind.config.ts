@@ -9,10 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#000000",
-        secondary: "#FFFFFF",
-        accent: "#D4AF37", // Gold
-        lightGray: "#F3F4F6",
+        primary: "#FFFFFF",
+        secondary: "#0A0A0A",
+        accent: "#ccff00", // Neon Green
+        lightGray: "#1A1A1A",
+      },
+      fontFamily: {
+        impact: ["Anton", "impact", "sans-serif"],
       },
       keyframes: {
         "slide-down": {

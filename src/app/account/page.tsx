@@ -69,7 +69,7 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-accent border-t-transparent rounded-full" />
       </div>
     );
@@ -78,25 +78,25 @@ export default function AccountPage() {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-white py-16 md:py-24">
+      <main className="flex-1 bg-[#0A0A0A] py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             {/* Profile Header */}
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-16 pb-12 border-b border-gray-100">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-16 pb-12 border-b border-[#222]">
               <div className="flex items-center gap-6">
-                <div className="w-20 h-20 rounded-[2rem] bg-black flex items-center justify-center text-white text-3xl font-black italic shadow-2xl shadow-black/20">
+                <div className="w-20 h-20 rounded-2xl bg-accent flex items-center justify-center text-secondary text-3xl font-impact tracking-wider shadow-2xl shadow-accent/20">
                   {user?.email?.[0].toUpperCase()}
                 </div>
                 <div>
-                  <h1 className="text-4xl font-black tracking-tighter uppercase italic leading-none mb-2">
+                  <h1 className="text-4xl font-impact tracking-wider uppercase leading-none mb-2 text-white">
                     {user?.user_metadata?.display_name || user?.email?.split('@')[0]}
                   </h1>
-                  <p className="text-gray-400 text-sm font-medium">{user?.email}</p>
+                  <p className="text-gray-500 text-sm font-sans">{user?.email}</p>
                 </div>
               </div>
               <button 
                 onClick={handleLogout}
-                className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-gray-50 text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all font-black text-[10px] uppercase tracking-widest group"
+                className="flex items-center gap-3 px-8 py-4 rounded-xl bg-[#111] border border-[#222] text-gray-400 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 transition-all font-impact text-sm uppercase tracking-widest group"
               >
                 <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 {t('logout')}
@@ -107,34 +107,34 @@ export default function AccountPage() {
               {/* Order History */}
               <div className="lg:col-span-2">
                 <div className="flex items-center gap-4 mb-10">
-                  <div className="p-3 bg-gray-50 rounded-2xl text-primary"><ShoppingBag className="w-5 h-5" /></div>
-                  <h2 className="text-2xl font-black uppercase tracking-tighter italic">{t('order_history')}</h2>
+                  <div className="p-3 bg-[#111] border border-[#222] rounded-xl text-accent"><ShoppingBag className="w-5 h-5" /></div>
+                  <h2 className="text-2xl font-impact uppercase tracking-wider text-white">{t('order_history')}</h2>
                 </div>
 
                 {orders.length > 0 ? (
                   <div className="space-y-6">
                     {orders.map((order) => (
-                      <div key={order.id} className="group bg-gray-50 hover:bg-white border border-transparent hover:border-gray-100 rounded-[2.5rem] p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5">
-                        <div className="flex flex-col sm:flex-row justify-between gap-6 mb-8 pb-6 border-b border-gray-100/50">
+                      <div key={order.id} className="group bg-[#111] border border-[#222] hover:border-[#333] rounded-3xl p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5">
+                        <div className="flex flex-col sm:flex-row justify-between gap-6 mb-8 pb-6 border-b border-[#222]">
                           <div className="flex items-center gap-4">
-                            <div className="p-3 bg-white rounded-xl shadow-sm"><Package className="w-4 h-4 text-gray-400" /></div>
+                            <div className="p-3 bg-[#1a1a1a] rounded-xl"><Package className="w-4 h-4 text-gray-500" /></div>
                             <div>
-                              <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Order ID</p>
-                              <p className="text-xs font-black italic">#{order.id.toString().substring(0, 8)}</p>
+                              <p className="font-impact text-xs uppercase tracking-widest text-gray-500 mb-0.5">Order ID</p>
+                              <p className="text-sm font-impact tracking-wider text-white">#{order.id.toString().substring(0, 8)}</p>
                             </div>
                           </div>
                           <div className="flex items-center gap-4">
-                            <div className="p-3 bg-white rounded-xl shadow-sm"><Calendar className="w-4 h-4 text-gray-400" /></div>
+                            <div className="p-3 bg-[#1a1a1a] rounded-xl"><Calendar className="w-4 h-4 text-gray-500" /></div>
                             <div>
-                              <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Date</p>
-                              <p className="text-xs font-black italic">{new Date(order.created_at).toLocaleDateString()}</p>
+                              <p className="font-impact text-xs uppercase tracking-widest text-gray-500 mb-0.5">Date</p>
+                              <p className="text-sm font-impact tracking-wider text-white">{new Date(order.created_at).toLocaleDateString()}</p>
                             </div>
                           </div>
                           <div className="flex items-center gap-4">
-                            <div className={`px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                              order.status === 'delivered' ? 'bg-green-100 text-green-600' :
-                              order.status === 'pending' ? 'bg-yellow-100 text-yellow-600' :
-                              'bg-blue-100 text-blue-600'
+                            <div className={`px-4 py-2 rounded-full font-impact text-xs uppercase tracking-widest ${
+                              order.status === 'delivered' ? 'bg-green-500/10 text-green-500 border border-green-500/20' :
+                              order.status === 'pending' ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' :
+                              'bg-blue-500/10 text-blue-500 border border-blue-500/20'
                             }`}>
                               {order.status}
                             </div>
@@ -143,22 +143,22 @@ export default function AccountPage() {
 
                         <div className="flex flex-wrap gap-4 mb-8">
                            {order.items?.map((item: any, idx: number) => (
-                             <div key={idx} className="relative w-12 h-16 rounded-xl overflow-hidden bg-white border border-gray-100">
+                             <div key={idx} className="relative w-12 h-16 rounded-xl overflow-hidden bg-[#1a1a1a] border border-[#222]">
                                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                              </div>
                            ))}
                            {order.items?.length > 4 && (
-                             <div className="w-12 h-16 rounded-xl bg-gray-200 flex items-center justify-center text-[10px] font-black italic">
+                             <div className="w-12 h-16 rounded-xl bg-[#222] flex items-center justify-center font-impact text-sm text-gray-400">
                                +{order.items.length - 4}
                              </div>
                            )}
                         </div>
 
                         <div className="flex items-center justify-between mt-auto">
-                          <p className="text-2xl font-black italic text-primary">{formatPrice(order.total)}</p>
+                          <p className="text-2xl font-impact text-accent tracking-widest">{formatPrice(order.total)}</p>
                           <Link 
                             href={`/track-order?id=${order.id}&phone=${order.customer_phone}`}
-                            className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-accent hover:underline"
+                            className="flex items-center gap-2 font-impact text-sm uppercase tracking-widest text-accent hover:text-white transition-colors"
                           >
                             Details <ChevronRight className="w-4 h-4" />
                           </Link>
@@ -167,10 +167,10 @@ export default function AccountPage() {
                     ))}
                   </div>
                 ) : (
-                  <div className="bg-gray-50 border border-dashed border-gray-200 rounded-[3rem] py-24 text-center">
-                    <ShoppingBag className="w-12 h-12 text-gray-200 mx-auto mb-6" />
-                    <p className="text-gray-400 text-sm font-medium mb-8">You haven't placed any orders yet.</p>
-                    <Link href="/shop" className="bg-black text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-accent transition-all">
+                  <div className="bg-[#111] border border-dashed border-[#333] rounded-3xl py-24 text-center">
+                    <ShoppingBag className="w-12 h-12 text-[#333] mx-auto mb-6" />
+                    <p className="text-gray-500 text-sm font-sans mb-8">You haven&apos;t placed any orders yet.</p>
+                    <Link href="/shop" className="bg-accent text-secondary px-10 py-5 rounded-md font-impact text-lg uppercase tracking-wider hover:bg-white transition-all glow-effect inline-block">
                       Start Shopping
                     </Link>
                   </div>
@@ -179,36 +179,36 @@ export default function AccountPage() {
 
               {/* Account Sidebar */}
               <div className="space-y-8">
-                <div className="bg-[#FBFBFB] border border-gray-100 rounded-[2.5rem] p-10">
-                  <h3 className="text-xl font-black uppercase tracking-tighter italic mb-8">Account Info</h3>
+                <div className="bg-[#111] border border-[#222] rounded-3xl p-10">
+                  <h3 className="text-xl font-impact uppercase tracking-wider text-white mb-8">Account Info</h3>
                   <div className="space-y-6">
                     <div className="flex items-start gap-4">
-                      <div className="p-3 bg-white rounded-xl shadow-sm text-gray-400"><User className="w-4 h-4" /></div>
+                      <div className="p-3 bg-[#1a1a1a] rounded-xl text-gray-500"><User className="w-4 h-4" /></div>
                       <div className="flex-1">
-                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Display Name</p>
+                        <p className="font-impact text-xs uppercase tracking-widest text-gray-500 mb-0.5">Display Name</p>
                         {isEditing ? (
                           <input 
                             value={editForm.displayName}
                             onChange={(e) => setEditForm({...editForm, displayName: e.target.value})}
-                            className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/20"
+                            className="w-full bg-[#1a1a1a] border border-[#333] rounded-xl px-4 py-2 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent"
                           />
                         ) : (
-                          <p className="text-sm font-bold">{user?.user_metadata?.display_name || user?.email?.split('@')[0]}</p>
+                          <p className="text-sm font-sans text-white">{user?.user_metadata?.display_name || user?.email?.split('@')[0]}</p>
                         )}
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <div className="p-3 bg-white rounded-xl shadow-sm text-gray-400"><MapPin className="w-4 h-4" /></div>
+                      <div className="p-3 bg-[#1a1a1a] rounded-xl text-gray-500"><MapPin className="w-4 h-4" /></div>
                       <div className="flex-1">
-                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Default City</p>
+                        <p className="font-impact text-xs uppercase tracking-widest text-gray-500 mb-0.5">Default City</p>
                         {isEditing ? (
                           <input 
                             value={editForm.city}
                             onChange={(e) => setEditForm({...editForm, city: e.target.value})}
-                            className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-accent/20"
+                            className="w-full bg-[#1a1a1a] border border-[#333] rounded-xl px-4 py-2 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent"
                           />
                         ) : (
-                          <p className="text-sm font-bold">{user?.user_metadata?.city || <span className="text-gray-300 italic">Not specified</span>}</p>
+                          <p className="text-sm font-sans text-white">{user?.user_metadata?.city || <span className="text-gray-600 italic">Not specified</span>}</p>
                         )}
                       </div>
                     </div>
@@ -219,13 +219,13 @@ export default function AccountPage() {
                       <button 
                         onClick={handleSaveProfile}
                         disabled={saving}
-                        className="flex-1 py-4 rounded-2xl bg-black text-white text-[10px] font-black uppercase tracking-widest hover:bg-accent transition-all disabled:opacity-50"
+                        className="flex-1 py-4 rounded-md bg-accent text-secondary font-impact text-lg uppercase tracking-wider hover:bg-white transition-all disabled:opacity-50"
                       >
                         {saving ? 'Saving...' : 'Save Changes'}
                       </button>
                       <button 
                         onClick={() => setIsEditing(false)}
-                        className="px-6 py-4 rounded-2xl border border-gray-200 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:border-black hover:text-black transition-all"
+                        className="px-6 py-4 rounded-xl border border-[#333] font-impact text-sm uppercase tracking-widest text-gray-500 hover:border-accent hover:text-accent transition-all"
                       >
                         Cancel
                       </button>
@@ -233,20 +233,20 @@ export default function AccountPage() {
                   ) : (
                     <button 
                       onClick={() => setIsEditing(true)}
-                      className="w-full mt-10 py-4 rounded-2xl border border-gray-200 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:border-black hover:text-black transition-all"
+                      className="w-full mt-10 py-4 rounded-xl border border-[#333] font-impact text-sm uppercase tracking-widest text-gray-500 hover:border-accent hover:text-accent transition-all"
                     >
                       Edit Profile
                     </button>
                   )}
                 </div>
 
-                <div className="bg-black rounded-[2.5rem] p-10 text-white relative overflow-hidden">
+                <div className="bg-[#111] border border-accent/20 rounded-3xl p-10 relative overflow-hidden">
                    <div className="relative z-10">
-                      <h3 className="text-xl font-black uppercase tracking-tighter italic mb-4">Elite Membership</h3>
-                      <p className="text-gray-400 text-xs font-medium leading-relaxed mb-8">
+                      <h3 className="text-xl font-impact uppercase tracking-wider text-white mb-4">Elite Membership</h3>
+                      <p className="text-gray-400 text-xs font-sans leading-relaxed mb-8">
                         You are a valued member of the IlyWear community. Enjoy priority support and early access to new drops.
                       </p>
-                      <Link href="/support" className="text-accent text-[10px] font-black uppercase tracking-widest hover:underline">
+                      <Link href="/support" className="text-accent font-impact text-sm uppercase tracking-widest hover:text-white transition-colors">
                         Contact Support
                       </Link>
                    </div>

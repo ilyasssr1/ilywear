@@ -2,10 +2,12 @@
 
 import { MessageCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useSettings } from '@/context/SettingsContext';
 import { useState, useEffect } from 'react';
 
 export default function WhatsAppFloating() {
   const { isRTL, t } = useLanguage();
+  const { whatsappNumber } = useSettings();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -20,7 +22,6 @@ export default function WhatsAppFloating() {
     return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
-  const whatsappNumber = "212600000000"; // Remplacez par votre vrai numéro si besoin
   const message = encodeURIComponent("Hello IlyWear! J'ai une question concernant un de vos articles.");
 
   return (

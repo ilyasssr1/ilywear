@@ -39,43 +39,43 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-12">
-          <Link href="/" className="text-3xl font-black tracking-tighter uppercase italic inline-block mb-8">
-            Ily<span className="text-accent font-light not-italic">Wear</span>
+          <Link href="/" className="text-3xl font-impact tracking-wider uppercase inline-block mb-8 text-white">
+            Ily<span className="text-accent">Wear</span>
           </Link>
-          <h1 className="text-4xl font-black tracking-tighter uppercase italic mb-3">Join IlyWear</h1>
-          <p className="text-gray-400 text-sm font-medium">Create your free account</p>
+          <h1 className="text-4xl font-impact tracking-wider uppercase text-white mb-3">Join IlyWear</h1>
+          <p className="text-gray-500 text-sm font-sans">Create your free account</p>
         </div>
 
         <form onSubmit={handleRegister} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Full Name</label>
+            <label className="font-impact text-sm uppercase tracking-widest text-gray-500">Full Name</label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+              className="w-full bg-[#111] border border-[#222] rounded-xl py-4 px-6 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
               placeholder="Ahmed El Alaoui"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Email Address</label>
+            <label className="font-impact text-sm uppercase tracking-widest text-gray-500">Email Address</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
-              placeholder="you@example.com"
+              className="w-full bg-[#111] border border-[#222] rounded-xl py-4 px-6 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
+              placeholder="contact@ilywear.com"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Password</label>
+            <label className="font-impact text-sm uppercase tracking-widest text-gray-500">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -83,13 +83,13 @@ export default function RegisterPage() {
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-gray-50 border border-transparent rounded-2xl py-4 px-6 pr-12 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent/20 focus:bg-white transition-all"
+                className="w-full bg-[#111] border border-[#222] rounded-xl py-4 px-6 pr-12 text-sm text-white font-sans focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                 placeholder="Min. 6 characters"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-accent transition-colors"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -99,10 +99,10 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-black text-white py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-accent transition-all duration-500 shadow-xl shadow-black/10 flex items-center justify-center gap-3"
+            className="w-full bg-accent text-secondary py-5 rounded-md font-impact text-xl uppercase tracking-wider hover:bg-white transition-all duration-500 shadow-xl shadow-accent/10 flex items-center justify-center gap-3 glow-effect"
           >
             {loading ? (
-              <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+              <div className="animate-spin w-5 h-5 border-2 border-secondary border-t-transparent rounded-full" />
             ) : (
               'Create Account'
             )}
@@ -110,9 +110,9 @@ export default function RegisterPage() {
         </form>
 
         <div className="text-center mt-8">
-          <p className="text-sm text-gray-400 font-medium">
+          <p className="text-sm text-gray-500 font-sans">
             Already have an account?{' '}
-            <Link href="/login" className="text-black font-bold hover:text-accent transition-colors">
+            <Link href="/login" className="text-accent font-impact uppercase tracking-wider hover:text-white transition-colors">
               Sign in
             </Link>
           </p>

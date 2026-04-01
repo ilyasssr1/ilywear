@@ -51,23 +51,23 @@ export default function Home() {
             <div className="inline-block mb-6 px-5 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] animate-fade-in animate-glow">
               {t('new_collection')}
             </div>
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white mb-8 uppercase tracking-tighter leading-[0.9] animate-slide-up">
+            <h1 className="text-6xl sm:text-7xl lg:text-9xl font-impact tracking-normal text-white mb-8 uppercase leading-[0.8] animate-slide-up">
               {t('hero_title_1')} <br />
-              <span className="gradient-text italic font-light">{t('hero_title_2')}</span> {t('hero_title_3')}
+              <span className="text-accent">{t('hero_title_2')}</span> {t('hero_title_3')}
             </h1>
-            <p className="text-base sm:text-xl text-gray-300 mb-12 max-w-2xl text-balance font-light leading-relaxed animate-fade-in delay-200">
+            <p className="text-lg sm:text-2xl text-gray-400 mb-12 max-w-2xl text-balance font-sans leading-relaxed animate-fade-in delay-200">
               {t('hero_subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
               <Link 
                 href="/shop" 
-                className="bg-accent hover:bg-white text-primary px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest transition-all duration-500 transform hover:scale-105 shadow-[0_15px_30px_-10px_rgba(212,175,55,0.5)] flex items-center justify-center"
+                className="bg-accent hover:bg-white text-secondary hover:text-secondary px-10 py-5 font-impact text-2xl uppercase tracking-wider transition-all duration-500 transform hover:scale-105 flex items-center justify-center glow-effect"
               >
                 {t('shop_collection')}
               </Link>
               <Link 
                 href="/shop?category=promotions" 
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest transition-all duration-500 transform hover:scale-105 flex items-center justify-center"
+                className="bg-transparent hover:bg-white/10 backdrop-blur-md text-white border border-white/30 px-10 py-5 font-impact text-2xl uppercase tracking-wider transition-all duration-500 transform hover:scale-105 flex items-center justify-center"
               >
                 {t('view_offers')}
               </Link>
@@ -81,17 +81,17 @@ export default function Home() {
         </section>
 
         {/* New Arrivals Section */}
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-secondary">
           <div className="container mx-auto px-6">
             <ScrollReveal>
               <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                 <div className="max-w-xl">
-                  <span className="text-accent text-xs font-bold uppercase tracking-[0.3em] mb-3 inline-block">{t('new_arrivals')}</span>
-                  <h2 className="text-4xl font-black tracking-tighter uppercase italic leading-tight">{t('elite_pieces')} <br />{t('you_cant_miss')}</h2>
+                  <span className="text-accent text-sm font-impact uppercase tracking-widest mb-3 inline-block">{t('new_arrivals')}</span>
+                  <h2 className="text-5xl lg:text-7xl font-impact uppercase leading-[0.9] text-white">{t('elite_pieces')} <br />{t('you_cant_miss')}</h2>
                 </div>
-                <Link href="/shop" className="group flex items-center gap-4 text-xs font-black uppercase tracking-widest bg-black text-white px-10 py-5 rounded-full hover:bg-accent transition-all duration-500 shadow-xl shadow-black/10">
+                <Link href="/shop" className="group flex items-center gap-4 text-xl font-impact uppercase tracking-wider bg-white text-secondary px-8 py-4 hover:bg-accent transition-all duration-500">
                   {t('view_all_arrivals')}
-                  <span className={`transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`}>&rarr;</span>
+                  <span className={`transition-transform text-2xl ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`}>&rarr;</span>
                 </Link>
               </div>
             </ScrollReveal>
@@ -107,16 +107,16 @@ export default function Home() {
         </section>
 
         {/* Categories Section */}
-        <section className="py-24 bg-[#FBFBFB]">
+        <section className="py-24 bg-[#111111]">
           <div className="container mx-auto px-6">
             <ScrollReveal>
               <div className="flex flex-col items-center mb-16">
-                <span className="text-accent text-xs font-bold uppercase tracking-[0.3em] mb-3">{t('collections')}</span>
-                <h2 className="text-4xl font-black tracking-tighter uppercase italic">{t('shop_by_category')}</h2>
+                <span className="text-accent text-sm font-impact uppercase tracking-widest mb-3">{t('collections')}</span>
+                <h2 className="text-6xl font-impact uppercase text-white">{t('shop_by_category')}</h2>
               </div>
             </ScrollReveal>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {/* Women Category */}
               <ScrollReveal delay={100}>
                 <Link href="/shop?category=women" className="group relative h-[500px] overflow-hidden rounded-[2.5rem] flex items-end p-10 shadow-2xl block">
@@ -129,11 +129,11 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
                   <div className={`relative z-10 w-full flex justify-between items-center transition-transform duration-500 ${isRTL ? 'group-hover:-translate-x-2' : 'group-hover:translate-x-2'}`}>
                     <div>
-                      <h2 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter italic">{t('women')}</h2>
-                      <p className="text-gray-300 text-sm font-medium">{t('women_subtitle')}</p>
+                      <h2 className="text-5xl font-impact text-white mb-2 uppercase">{t('women')}</h2>
+                      <p className="text-gray-300 font-sans text-sm">{t('women_subtitle')}</p>
                     </div>
-                    <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center group-hover:bg-accent transition-colors shadow-xl">
-                      <span className={`text-black text-xl font-bold ${isRTL ? 'rotate-180' : ''}`}>&rarr;</span>
+                    <div className="w-16 h-16 bg-accent flex items-center justify-center group-hover:bg-white transition-colors">
+                      <span className={`text-secondary text-2xl font-black ${isRTL ? 'rotate-180' : ''}`}>&rarr;</span>
                     </div>
                   </div>
                 </Link>
@@ -151,11 +151,33 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
                   <div className={`relative z-10 w-full flex justify-between items-center transition-transform duration-500 ${isRTL ? 'group-hover:-translate-x-2' : 'group-hover:translate-x-2'}`}>
                     <div>
-                      <h2 className="text-4xl font-black text-white mb-2 uppercase tracking-tighter italic">{t('men')}</h2>
-                      <p className="text-gray-300 text-sm font-medium">{t('men_subtitle')}</p>
+                      <h2 className="text-5xl font-impact text-white mb-2 uppercase">{t('men')}</h2>
+                      <p className="text-gray-300 font-sans text-sm">{t('men_subtitle')}</p>
                     </div>
-                    <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center group-hover:bg-accent transition-colors shadow-xl">
-                      <span className={`text-black text-xl font-bold ${isRTL ? 'rotate-180' : ''}`}>&rarr;</span>
+                    <div className="w-16 h-16 bg-accent flex items-center justify-center group-hover:bg-white transition-colors">
+                      <span className={`text-secondary text-2xl font-black ${isRTL ? 'rotate-180' : ''}`}>&rarr;</span>
+                    </div>
+                  </div>
+                </Link>
+              </ScrollReveal>
+
+              {/* Boys Category */}
+              <ScrollReveal delay={300}>
+                <Link href="/shop?category=boys" className="group relative h-[500px] overflow-hidden rounded-[2.5rem] flex items-end p-10 shadow-2xl block">
+                  <Image
+                    src="https://images.unsplash.com/photo-1519457431-758c4abb627f?w=800&q=80"
+                    alt="Boys Collection"
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                  <div className={`relative z-10 w-full flex justify-between items-center transition-transform duration-500 ${isRTL ? 'group-hover:-translate-x-2' : 'group-hover:translate-x-2'}`}>
+                    <div>
+                      <h2 className="text-5xl font-impact text-white mb-2 uppercase">{t('boys') || 'Boys'}</h2>
+                      <p className="text-gray-300 font-sans text-sm">{t('boys_subtitle') || 'Youthful Style'}</p>
+                    </div>
+                    <div className="w-16 h-16 bg-accent flex items-center justify-center group-hover:bg-white transition-colors">
+                      <span className={`text-secondary text-2xl font-black ${isRTL ? 'rotate-180' : ''}`}>&rarr;</span>
                     </div>
                   </div>
                 </Link>
@@ -165,16 +187,16 @@ export default function Home() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-16 bg-[#F9F9F9] border-y border-gray-100">
+        <section className="py-16 bg-[#0A0A0A] border-y border-[#333]">
           <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
             {benefits.map((benefit, i) => (
               <ScrollReveal key={i} delay={i * 100}>
                 <div className="flex flex-col items-center text-center group">
-                  <div className="w-16 h-16 rounded-3xl bg-white shadow-sm border border-gray-100 flex items-center justify-center text-accent mb-6 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
-                    <benefit.icon className="w-8 h-8" />
+                  <div className="w-20 h-20 bg-[#111] border border-[#333] flex items-center justify-center text-accent mb-6 group-hover:scale-110 group-hover:border-accent transition-all duration-500">
+                    <benefit.icon className="w-10 h-10" />
                   </div>
-                  <h3 className="text-sm font-black uppercase tracking-widest mb-2">{benefit.title}</h3>
-                  <p className="text-gray-500 text-xs font-medium">{benefit.desc}</p>
+                  <h3 className="text-2xl font-impact uppercase tracking-wide text-white mb-2">{benefit.title}</h3>
+                  <p className="text-gray-400 font-sans text-sm">{benefit.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -183,12 +205,12 @@ export default function Home() {
 
 
         {/* Community Section */}
-        <section className="py-24 bg-white overflow-hidden">
+        <section className="py-24 bg-secondary overflow-hidden">
           <div className="container mx-auto px-6">
             <ScrollReveal>
               <div className="flex flex-col items-center mb-16 text-center">
-                <span className="text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-4">#IlyWearStyle</span>
-                <h2 className="text-4xl font-black tracking-tighter uppercase italic leading-[1.1] max-w-xl">
+                <span className="text-accent text-sm font-impact uppercase tracking-widest mb-4">#IlyWearStyle</span>
+                <h2 className="text-6xl font-impact uppercase text-white leading-[0.9] max-w-2xl">
                   {t('community_title')} <br />{t('community_subtitle')}
                 </h2>
               </div>
@@ -222,8 +244,8 @@ export default function Home() {
         </section>
 
         {/* Promo Section */}
-        <section className="py-32 relative overflow-hidden bg-black flex items-center justify-center">
-          <div className="absolute inset-0 opacity-40">
+        <section className="py-32 relative overflow-hidden bg-black flex items-center justify-center border-y border-accent">
+          <div className="absolute inset-0 opacity-20">
             <Image
               src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600&q=80"
               alt="Promo background"
@@ -232,19 +254,18 @@ export default function Home() {
             />
           </div>
           <ScrollReveal className="relative z-10 container mx-auto px-6 max-w-4xl text-center flex flex-col items-center">
-            <div className="w-20 h-[1px] bg-accent mb-8" />
-            <h2 className="text-5xl md:text-7xl font-black mb-8 text-white uppercase tracking-tighter leading-tight">
-              {t('sale_of')} <br /><span className="gradient-text italic font-light">{t('the_season')}</span>
+            <h2 className="text-7xl md:text-9xl font-impact mb-6 text-white uppercase leading-[0.8]">
+              {t('sale_of')} <br /><span className="text-accent">{t('the_season')}</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-300 mb-12 text-balance leading-relaxed font-light">
+            <p className="text-xl md:text-2xl text-gray-300 mb-12 text-balance leading-relaxed font-sans">
               {t('promo_subtitle')}
             </p>
             <Link 
               href="/shop?category=promotions" 
-              className="bg-accent text-white hover:bg-white hover:text-black px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] transition-all duration-500 shadow-2xl shadow-accent/20 flex items-center gap-3"
+              className="bg-accent text-secondary hover:bg-white hover:text-secondary px-12 py-5 font-impact text-2xl uppercase tracking-wider transition-all duration-500 glow-effect flex items-center gap-4"
             >
               {t('shop_the_sale')}
-              <span className={isRTL ? 'rotate-180' : ''}>&rarr;</span>
+              <span className={isRTL ? 'rotate-180 text-3xl' : 'text-3xl'}>&rarr;</span>
             </Link>
           </ScrollReveal>
         </section>

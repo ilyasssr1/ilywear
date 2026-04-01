@@ -13,6 +13,8 @@ export interface Product {
   sizes?: string[];
   stock?: number;
   rating?: number;
+  promo_end_date?: string;
+  badge?: 'new' | 'hot' | 'sale' | 'limited';
 }
 
 // ---- Fallback mock data (used if Supabase is unreachable) ----
@@ -148,6 +150,22 @@ function generateFallbackProducts(): Product[] {
       ],
       colors: commonColors,
       sizes: commonSizes,
+      badge: 'new'
+    },
+    {
+      id: 10,
+      title: "Junior Street Hoodie",
+      price: 249,
+      description: "Comfortable urban hoodie for boys.",
+      category: "boys",
+      image: "https://images.unsplash.com/photo-1519457431-758c4abb627f?w=500&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1519457431-758c4abb627f?w=500&q=80",
+      ],
+      colors: ["#000000", "#1e3a8a"],
+      sizes: ["S", "M", "L"],
+      stock: 5,
+      badge: 'hot'
     },
   ];
 }
@@ -303,5 +321,27 @@ export async function createOrder(order: {
   } catch (error) {
     console.error("Error creating order:", error);
     return null;
+  }
+}
+// ---- STOCK NOTIFICATIONS ----
+export async function requestStockNotification(data: {
+  product_id: string | number;
+  phone: string;
+  size?: string;
+  color?: string;
+}): Promise<boolean> {
+  try {
+    const { error } = await supabase
+      .from("stock_notifications")
+      .insert([data]);
+
+    if (error) {
+      console.error("Error creating notification:", error.message);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Error creating notification:", error);
+    return false;
   }
 }

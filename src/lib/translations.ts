@@ -14,6 +14,7 @@ export const translations = {
     logout: "Logout",
     account: "Account",
     wishlist: "Wishlist",
+    more: "More",
     connect_with_us: "Connect with us",
     quick_view: "Quick View",
     support_whatsapp: "WhatsApp Support",
@@ -46,8 +47,10 @@ export const translations = {
     shop_by_category: "Shop by Category",
     women: "Women",
     men: "Men",
+    boys: "Boys",
     women_subtitle: "Curated Elegance",
     men_subtitle: "Street Sophistication",
+    boys_subtitle: "Youthful Energy",
 
     // Benefits
     free_shipping: "Free Shipping",
@@ -79,7 +82,11 @@ export const translations = {
     add_to_bag: "Add to Bag",
     added_to_bag: "Added to Bag",
     added: "Added",
+    new: "New",
+    hot: "Hot",
+    limited: "Limited",
     new_badge: "New",
+    choose_options: "Options",
 
     // Cart
     your_bag: "YOUR BAG",
@@ -240,6 +247,12 @@ export const translations = {
     verified_products: "Verified Products",
     easy_returns_label: "Easy Returns",
     within_7_days: "Within 7 days",
+    notify_me: "Notify Me",
+    out_of_stock: "Out of Stock",
+    notify_me_desc: "Get notified when this size is back in stock.",
+    enter_phone_notify: "Enter your WhatsApp phone",
+    notify_success: "We'll notify you on WhatsApp!",
+    notify_failed: "Failed to set notification. Try WhatsApp direct.",
 
     // Size Guide
     size_guide_title: "Size Guide",
@@ -271,6 +284,10 @@ export const translations = {
     // Footer
     join_community: "Join the Community",
     community_desc: "Be the first to know about new drops and exclusive WhatsApp-only offers.",
+    newsletter_title: "Join the Elite",
+    newsletter_desc: "Get exclusive early access to drops and secret offers.",
+    email_placeholder: "your@email.com",
+    subscribe: "Subscribe",
     browse_new_drops: "Browse New Drops",
     womens_elite: "Women's Elite",
     mens_streetwear: "Men's Streetwear",
@@ -278,6 +295,7 @@ export const translations = {
     exclusive_drops: "Exclusive Drops",
     redefining_moroccan: "Redefining Moroccan Style.",
     designed_for_morocco: "Designed for Morocco",
+    boys_style: "Boys' Style",
 
     // 404 Page
     page_not_found: "Page Not Found",
@@ -290,6 +308,9 @@ export const translations = {
     // Auth
     signed_out: "Signed out successfully",
     welcome: "Welcome back",
+    maintenance_title: "Site in Maintenance",
+    maintenance_subtitle: "We're currently updating IlyWear to bring you a better experience. We'll be back shorty.",
+    scheduled_return: "Scheduled Return",
 
     // Common
     all_morocco: "Worldwide / Morocco",
@@ -310,6 +331,7 @@ export const translations = {
     logout: "تسجيل الخروج",
     account: "الحساب",
     wishlist: "قائمة الأمنيات",
+    more: "المزيد",
     connect_with_us: "تواصل معنا",
     quick_view: "عرض سريع",
     support_whatsapp: "دعم واتساب",
@@ -342,8 +364,10 @@ export const translations = {
     shop_by_category: "تسوق حسب الفئة",
     women: "نساء",
     men: "رجال",
+    boys: "أطفال",
     women_subtitle: "أناقة مختارة",
     men_subtitle: "تطور الشارع",
+    boys_subtitle: "طاقة شبابية",
 
     // Benefits
     free_shipping: "شحن مجاني",
@@ -375,7 +399,11 @@ export const translations = {
     add_to_bag: "أضف إلى السلة",
     added_to_bag: "تمت الإضافة",
     added: "تمت الإضافة",
+    new: "جديد",
+    hot: "مطلوب",
+    limited: "محدود",
     new_badge: "جديد",
+    choose_options: "الخيارات",
 
     // Cart
     your_bag: "سلتك",
@@ -536,6 +564,12 @@ export const translations = {
     verified_products: "منتجات موثوقة",
     easy_returns_label: "إرجاع سهل",
     within_7_days: "خلال 7 أيام",
+    notify_me: "أعلمني عند المتوفر",
+    out_of_stock: "غير متوفر حالياً",
+    notify_me_desc: "سيتم إعلامك فور توفر هذا المقاس مجدداً.",
+    enter_phone_notify: "أدخل رقم هاتف واتساب",
+    notify_success: "سوف نعلمك عبر واتساب!",
+    notify_failed: "فشل إعداد التنبيه. حاول عبر الواتساب مباشرة.",
 
     // Size Guide
     size_guide_title: "دليل المقاسات",
@@ -567,6 +601,10 @@ export const translations = {
     // Footer
     join_community: "انضم إلى المجتمع",
     community_desc: "كن أول من يعرف عن الإصدارات الجديدة والعروض الحصرية عبر واتساب.",
+    newsletter_title: "انضم إلى النخبة",
+    newsletter_desc: "احصل على وصول مبكر حصري للإصدارات والعروض السرية.",
+    email_placeholder: "بريدك@الإلكتروني.كوم",
+    subscribe: "اشترك",
     browse_new_drops: "تصفح الإصدارات الجديدة",
     womens_elite: "أزياء النساء الراقية",
     mens_streetwear: "أزياء الرجال العصرية",
@@ -574,6 +612,7 @@ export const translations = {
     exclusive_drops: "إصدارات حصرية",
     redefining_moroccan: "إعادة تعريف الأسلوب المغربي.",
     designed_for_morocco: "مصمم للمغرب",
+    boys_style: "أناقة الأطفال",
 
     // 404 Page
     page_not_found: "الصفحة غير موجودة",
@@ -587,6 +626,9 @@ export const translations = {
     // Auth
     signed_out: "تم تسجيل الخروج بنجاح",
     welcome: "مرحباً بعودتك",
+    maintenance_title: "الموقع في صيانة",
+    maintenance_subtitle: "نقوم حالياً بتحديث إيلي وير لنقدم لكم تجربة أفضل. سنعود قريباً.",
+    scheduled_return: "العودة المقررة",
 
     // Common
     all_morocco: "أنحاء المغرب",
@@ -607,6 +649,7 @@ export const translations = {
     logout: "Déconnexion",
     account: "Compte",
     wishlist: "Liste de souhaits",
+    more: "Plus",
     connect_with_us: "Restons en contact",
     quick_view: "Aperçu Rapide",
     support_whatsapp: "Support WhatsApp",
@@ -639,8 +682,10 @@ export const translations = {
     shop_by_category: "Acheter par Catégorie",
     women: "Femmes",
     men: "Hommes",
+    boys: "Garçons",
     women_subtitle: "Élégance Sélectionnée",
     men_subtitle: "Sophistication Urbaine",
+    boys_subtitle: "Énergie Jeunesse",
 
     // Benefits
     free_shipping: "Livraison Gratuite",
@@ -672,7 +717,11 @@ export const translations = {
     add_to_bag: "Ajouter au Panier",
     added_to_bag: "Ajouté au Panier",
     added: "Ajouté",
+    new: "Nouveau",
+    hot: "Populaire",
+    limited: "Limité",
     new_badge: "Nouveau",
+    choose_options: "Options",
 
     // Cart
     your_bag: "VOTRE PANIER",
@@ -833,6 +882,12 @@ export const translations = {
     verified_products: "Produits Vérifiés",
     easy_returns_label: "Retours Faciles",
     within_7_days: "Sous 7 jours",
+    notify_me: "Prévenez-moi",
+    out_of_stock: "En Rupture",
+    notify_me_desc: "Soyez prévenu dès que cette taille est de retour.",
+    enter_phone_notify: "Saisissez votre WhatsApp",
+    notify_success: "Nous vous préviendrons sur WhatsApp !",
+    notify_failed: "Échec du rappel. Essayez via WhatsApp.",
 
     // Size Guide
     size_guide_title: "Guide des Tailles",
@@ -863,7 +918,11 @@ export const translations = {
 
     // Footer
     join_community: "Rejoignez la Communauté",
-    community_desc: "Soyez le premier à découvrir les nouveautés et les offres exclusives WhatsApp.",
+    community_desc: "Soyez les premiers informés des nouveaux drops et des offres exclusives WhatsApp.",
+    newsletter_title: "Rejoignez l'Élite",
+    newsletter_desc: "Accédez en avant-première aux nouveaux drops et aux offres secrètes.",
+    email_placeholder: "votre@email.com",
+    subscribe: "S'abonner",
     browse_new_drops: "Découvrir les Nouveautés",
     womens_elite: "Collection Femmes Élite",
     mens_streetwear: "Streetwear Hommes",
@@ -871,6 +930,7 @@ export const translations = {
     exclusive_drops: "Éditions Exclusives",
     redefining_moroccan: "Redéfinir le Style Marocain.",
     designed_for_morocco: "Conçu pour le Maroc",
+    boys_style: "Style Garçons",
 
     // 404 Page
     page_not_found: "Page Introuvable",
@@ -879,6 +939,9 @@ export const translations = {
 
     // Error Page
     something_wrong: "Quelque chose s'est mal passé",
+    maintenance_title: "Site en Maintenance",
+    maintenance_subtitle: "Nous mettons actuellement à jour IlyWear pour vous offrir une meilleure expérience. Nous serons de retour très bientôt.",
+    scheduled_return: "Retour Prévu",
 
     // Auth
     signed_out: "Déconnexion réussie",

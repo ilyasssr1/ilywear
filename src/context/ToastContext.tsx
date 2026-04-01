@@ -56,48 +56,42 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const iconMap = {
-    success: <Check className="w-4 h-4" />,
-    error: <AlertCircle className="w-4 h-4" />,
-    info: <ShoppingBag className="w-4 h-4" />,
-    warning: <AlertTriangle className="w-4 h-4" />,
+    success: <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#4ade80] shadow-[0_0_10px_rgba(74,222,128,0.3)]"><Check className="w-4 h-4 text-[#111] stroke-[3]" /></div>,
+    error: <div className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.3)]"><AlertCircle className="w-4 h-4 text-white stroke-[3]" /></div>,
+    info: <div className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.3)]"><ShoppingBag className="w-4 h-4 text-white stroke-[3]" /></div>,
+    warning: <div className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.3)]"><AlertTriangle className="w-4 h-4 text-[#111] stroke-[3]" /></div>,
   };
 
   const colorMap = {
-    success: "bg-green-600 text-white border-green-700",
-    error: "bg-red-600 text-white border-red-700",
-    info: "bg-black text-white border-gray-900",
-    warning: "bg-yellow-600 text-white border-yellow-700",
+    success: "bg-[#1C1C1E] text-white border-[#2C2C2E]",
+    error: "bg-[#1C1C1E] text-white border-[#2C2C2E]",
+    info: "bg-[#1C1C1E] text-white border-[#2C2C2E]",
+    warning: "bg-[#1C1C1E] text-white border-[#2C2C2E]",
   };
 
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {/* Toast Container */}
-      <div className="fixed bottom-8 right-8 z-[200] flex flex-col gap-3 pointer-events-none max-w-sm">
-        {toasts.map((toast) => (
-          <div
-            key={toast.id}
-            className={`pointer-events-auto flex items-center gap-3 px-5 py-4 rounded-lg shadow-lg border-2 backdrop-blur-lg ${colorMap[toast.type]} animate-slide-up transition-all duration-300`}
-            style={{ animationDuration: "0.4s" }}
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
-              {iconMap[toast.type]}
-            </div>
-            <span className="text-sm font-semibold flex-1 line-clamp-3">
-              {toast.message}
-            </span>
-            <button
-              onClick={() => removeToast(toast.id)}
-              className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0"
-              aria-label="Dismiss notification"
+      <div className="fixed bottom-6 flex justify-center w-full sm:w-auto sm:right-8 sm:justify-end z-[200] pointer-events-none px-4 sm:px-0">
+        <div className="flex flex-col gap-3 w-full max-w-[320px]">
+          {toasts.map((toast) => (
+            <div
+              key={toast.id}
+              className={`pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-2xl ${colorMap[toast.type]} animate-slide-up transition-all duration-300 mx-auto sm:mx-0 w-full`}
+              style={{ animationDuration: "0.3s" }}
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
             >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        ))}
+              <div className="flex-shrink-0">
+                {iconMap[toast.type]}
+              </div>
+              <span className="text-sm font-medium font-sans flex-1">
+                {toast.message}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </ToastContext.Provider>
   );

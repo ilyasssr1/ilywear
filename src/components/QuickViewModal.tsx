@@ -46,17 +46,17 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
         onClick={onClose} 
       />
       
-      <div className="relative w-full max-w-4xl bg-white rounded-[2.5rem] shadow-2xl overflow-hidden animate-scale-in flex flex-col md:flex-row max-h-[90vh]">
+      <div className="relative w-full max-w-4xl bg-[#0A0A0A] border border-[#333] rounded-[2.5rem] shadow-2xl overflow-hidden animate-scale-in flex flex-col md:flex-row max-h-[90vh]">
         {/* Close Button Mobile */}
         <button 
           onClick={onClose} 
-          className="absolute top-4 right-4 z-50 p-2 bg-white/80 backdrop-blur-sm rounded-xl md:hidden"
+          className="absolute top-4 right-4 z-50 p-2 bg-[#111]/80 text-white backdrop-blur-sm rounded-xl md:hidden hover:bg-[#222]"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Left: Image Section */}
-        <div className="md:w-1/2 relative bg-gray-50 h-[350px] md:h-auto">
+        <div className="md:w-1/2 relative bg-[#111111] h-[350px] md:h-auto">
           <Image 
             src={images[currentImageIndex]} 
             alt={product.title} 
@@ -67,14 +67,14 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
           
           {images.length > 1 && (
             <div className="absolute inset-0 flex items-center justify-between px-4 opacity-0 hover:opacity-100 transition-opacity">
-               <button onClick={handlePrev} className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg"><ChevronLeft className="w-5 h-5" /></button>
-               <button onClick={handleNext} className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-lg"><ChevronRight className="w-5 h-5" /></button>
+               <button onClick={handlePrev} className="w-10 h-10 rounded-full bg-[#111]/80 text-white backdrop-blur-sm flex items-center justify-center shadow-lg"><ChevronLeft className="w-5 h-5" /></button>
+               <button onClick={handleNext} className="w-10 h-10 rounded-full bg-[#111]/80 text-white backdrop-blur-sm flex items-center justify-center shadow-lg"><ChevronRight className="w-5 h-5" /></button>
             </div>
           )}
 
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
             {images.map((_, i) => (
-              <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all ${currentImageIndex === i ? 'bg-black w-4' : 'bg-black/20'}`} />
+              <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all ${currentImageIndex === i ? 'bg-white w-4' : 'bg-white/20'}`} />
             ))}
           </div>
         </div>
@@ -83,15 +83,15 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
         <div className="md:w-1/2 p-8 md:p-12 overflow-y-auto scrollbar-hide flex flex-col">
           <button 
             onClick={onClose} 
-            className="absolute top-8 right-8 hidden md:block p-2 hover:bg-gray-50 rounded-xl transition-colors"
+            className="absolute top-8 right-8 hidden md:block p-2 text-gray-400 hover:text-white hover:bg-[#222] rounded-xl transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
 
           <div className="mb-8">
             <span className="text-accent text-[9px] font-black uppercase tracking-[0.3em] mb-2 inline-block">{product.category}</span>
-            <h2 className="text-3xl font-black tracking-tighter uppercase italic leading-tight text-primary">{product.title}</h2>
-            <div className="text-2xl font-black italic mt-4">{formatPrice(product.price)}</div>
+            <h2 className="text-3xl font-black tracking-tighter uppercase italic leading-tight text-white">{product.title}</h2>
+            <div className="text-2xl font-black italic mt-4 text-accent">{formatPrice(product.price)}</div>
           </div>
 
           <p className="text-gray-400 text-xs font-medium leading-relaxed mb-8 line-clamp-3">
@@ -107,7 +107,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
                       <button 
                         key={s}
                         onClick={() => setSelectedSize(s)}
-                        className={`h-11 px-6 rounded-xl border text-[10px] font-black transition-all ${selectedSize === s ? 'bg-black text-white border-black' : 'border-gray-100 hover:border-black'}`}
+                        className={`h-11 px-6 flex items-center justify-center rounded-xl border text-[10px] font-black transition-all ${selectedSize === s ? 'bg-accent text-secondary border-accent' : 'text-gray-400 border-[#333] hover:border-accent hover:text-white hover:bg-[#111]'}`}
                       >
                         {s}
                       </button>
@@ -124,8 +124,9 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
                       <button 
                         key={c}
                         onClick={() => setSelectedColor(c)}
-                        className={`w-8 h-8 rounded-full border-2 transition-all ${selectedColor === c ? 'border-primary ring-2 ring-primary/20 ring-offset-2' : 'border-transparent shadow-sm'}`}
+                        className={`w-8 h-8 rounded-full border transition-all ${selectedColor === c ? 'border-transparent ring-2 ring-accent ring-offset-2 ring-offset-[#0A0A0A]' : 'border-[#333] shadow-sm hover:scale-110 hover:border-gray-500'}`}
                         style={{ backgroundColor: c }}
+                        title={c}
                       />
                     ))}
                  </div>
@@ -133,23 +134,23 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewPr
             )}
           </div>
 
-          <div className="mt-auto space-y-4 pt-8 border-t border-gray-50">
+          <div className="mt-auto space-y-4 pt-8 border-t border-[#333]">
              <button 
               onClick={() => {
                 addToCart(product, 1, selectedSize, selectedColor);
                 setIsAdded(true);
                 setTimeout(() => setIsAdded(false), 2000);
               }}
-              className={`w-full py-5 rounded-2xl flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 shadow-xl ${
-                isAdded ? 'bg-green-500 text-white' : 'bg-black text-white hover:bg-accent'
+              className={`w-full py-5 rounded-2xl flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 shadow-xl glow-effect ${
+                isAdded ? 'bg-[#25D366] text-white' : 'bg-accent text-secondary hover:bg-white hover:-translate-y-1'
               }`}
             >
-              {isAdded ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
+              {isAdded ? <Check className="w-5 h-5" /> : <ShoppingBag className="w-5 h-5" />}
               {isAdded ? t('added') : t('add_to_bag')}
             </button>
             <Link 
               href={`/product/${product.id}`}
-              className="w-full py-2 text-center text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
+              className="w-full py-2 text-center text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-colors"
             >
               {isRTL ? 'عرض تفاصيل المنتج' : 'View full details'}
             </Link>

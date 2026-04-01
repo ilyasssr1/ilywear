@@ -23,11 +23,16 @@ export default function SearchBar() {
     <>
       <button 
         aria-label="Search" 
-        className="text-primary hover:text-accent transition-all flex items-center justify-center p-2.5 rounded-full border border-transparent hover:border-gray-200 group"
+        className="text-gray-400 hover:text-white transition-all flex items-center justify-between p-2 lg:px-4 lg:py-2 rounded-xl border border-transparent lg:border-[#333] lg:bg-[#111] lg:hover:border-[#555] group lg:w-[240px]"
         onClick={() => setIsOpen(true)}
       >
-        <Search className="h-5 w-5" />
-        <span className="hidden lg:flex items-center gap-1 ml-2 text-[8px] font-black uppercase tracking-widest text-gray-400 bg-gray-50 px-2 py-1 rounded-md border border-gray-100 group-hover:bg-white group-hover:text-black transition-all">
+        <div className="flex items-center gap-3">
+          <Search className="h-5 w-5 lg:h-4 lg:w-4 text-gray-400 group-hover:text-white transition-colors" />
+          <span className="hidden lg:block text-xs font-sans text-gray-500 group-hover:text-gray-400 transition-colors">
+            Search product...
+          </span>
+        </div>
+        <span className="hidden lg:flex items-center gap-1 ml-2 text-[8px] font-black uppercase tracking-widest text-gray-500 bg-[#222] px-2 py-1 rounded-md border border-[#333] group-hover:text-white transition-all">
           <span className="text-[10px]">⌘</span> K
         </span>
       </button>

@@ -41,24 +41,24 @@ export default function AllReviewsPage({ params }: { params: { id: string } }) {
     : 0;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-[#0A0A0A] flex flex-col">
       <Header />
       <main className="flex-1 container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
           {/* Back Button */}
           <Link 
             href={`/product/${params.id}`}
-            className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black hover:-translate-x-1 transition-all mb-12"
+            className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:-translate-x-1 transition-all mb-12"
           >
             <ArrowLeft className="w-4 h-4" />
             Retour au produit
           </Link>
 
           {/* Header */}
-          <div className="flex flex-col md:flex-row gap-8 items-center md:items-start justify-between mb-16 border-b border-gray-100 pb-12">
+          <div className="flex flex-col md:flex-row gap-8 items-center md:items-start justify-between mb-16 border-b border-[#333] pb-12">
             <div>
               <span className="text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-4 inline-block">Avis Clients</span>
-              <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic leading-none">
+              <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic leading-none text-white">
                 Tous Les Avis
               </h1>
               <p className="text-gray-400 text-sm font-medium mt-4">
@@ -67,11 +67,11 @@ export default function AllReviewsPage({ params }: { params: { id: string } }) {
             </div>
 
             {/* Overall Rating Box */}
-            <div className="bg-[#FBFBFB] border border-gray-100 rounded-[2.5rem] p-8 text-center min-w-[200px]">
-              <div className="text-5xl font-black italic mb-2">{averageRating}</div>
+            <div className="bg-[#111111] border border-[#333] rounded-[2.5rem] p-8 text-center min-w-[200px]">
+              <div className="text-5xl font-black italic mb-2 text-white">{averageRating}</div>
               <div className="flex justify-center gap-1 mb-3">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className={`w-4 h-4 ${Number(averageRating) >= s ? 'fill-accent text-accent' : 'text-gray-200'}`} />
+                  <Star key={s} className={`w-4 h-4 ${Number(averageRating) >= s ? 'fill-accent text-accent' : 'text-[#333]'}`} />
                 ))}
               </div>
               <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">
@@ -85,28 +85,28 @@ export default function AllReviewsPage({ params }: { params: { id: string } }) {
             {loading ? (
               <div className="space-y-6">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="animate-pulse h-32 bg-gray-50 rounded-3xl w-full border border-gray-100" />
+                  <div key={i} className="animate-pulse h-32 bg-[#222] rounded-3xl w-full border border-[#333]" />
                 ))}
               </div>
             ) : reviews.length === 0 ? (
-              <div className="text-center py-20 bg-gray-50 rounded-[2.5rem] border border-gray-100">
-                <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-black uppercase tracking-tight italic mb-2">Aucun avis</h3>
+              <div className="text-center py-20 bg-[#111111] rounded-[2.5rem] border border-[#333]">
+                <MessageSquare className="w-12 h-12 text-[#333] mx-auto mb-4" />
+                <h3 className="text-xl font-black uppercase tracking-tight italic mb-2 text-white">Aucun avis</h3>
                 <p className="text-gray-400 text-sm">Ce produit n'a pas encore d'avis complets.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {reviews.map((review) => (
-                  <div key={review.id} className="bg-white border border-gray-100 rounded-[2rem] p-8 hover:shadow-xl transition-shadow">
+                  <div key={review.id} className="bg-[#111111] border border-[#333] rounded-[2rem] p-8 hover:border-accent/50 hover:shadow-[0_0_30px_rgba(204,255,0,0.05)] transition-all">
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex items-center gap-3">
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-black italic ${
-                          review.user_name === 'Anonymous' ? 'bg-gray-100 text-gray-400' : 'bg-black text-white'
+                          review.user_name === 'Anonymous' ? 'bg-[#222] text-gray-500' : 'bg-accent text-secondary'
                         }`}>
                           {review.user_name.substring(0, 1).toUpperCase()}
                         </div>
                         <div>
-                          <p className="text-sm font-black uppercase tracking-tight">
+                          <p className="text-sm font-black uppercase tracking-tight text-white">
                             {review.user_name}
                           </p>
                           <p className="text-[10px] font-bold text-gray-400 italic">
@@ -117,19 +117,19 @@ export default function AllReviewsPage({ params }: { params: { id: string } }) {
                     </div>
                     <div className="flex gap-1 mb-4">
                       {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} className={`w-4 h-4 ${review.rating >= s ? 'fill-accent text-accent' : 'text-gray-200'}`} />
+                        <Star key={s} className={`w-4 h-4 ${review.rating >= s ? 'fill-accent text-accent' : 'text-[#333]'}`} />
                       ))}
                     </div>
                     {review.images && review.images.length > 0 && (
                       <div className="flex gap-2 mb-6 overflow-x-auto scrollbar-hide py-1">
                         {review.images.map((img, i) => (
-                          <div key={i} className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-100 shadow-sm transition-transform hover:scale-105 cursor-pointer">
+                          <div key={i} className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border border-[#333] shadow-sm transition-transform hover:scale-105 cursor-pointer">
                             <img src={img} alt={`Review ${i}`} className="w-full h-full object-cover" onClick={() => window.open(img, '_blank')} />
                           </div>
                         ))}
                       </div>
                     )}
-                    <p className="text-gray-600 text-[15px] font-medium leading-relaxed">
+                    <p className="text-gray-300 text-[15px] font-medium leading-relaxed">
                       {review.comment}
                     </p>
                   </div>
