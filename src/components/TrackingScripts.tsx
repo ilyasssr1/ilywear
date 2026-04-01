@@ -2,7 +2,7 @@
 
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 
 // Extend Window interface for FBQ
 declare global {
@@ -15,7 +15,7 @@ declare global {
 export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
 export const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
 
-export default function TrackingScripts() {
+function TrackingData() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -24,11 +24,18 @@ export default function TrackingScripts() {
     if (typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'PageView');
     }
-    // Track TikTok pageview if needed here
   }, [pathname, searchParams]);
 
+  return null;
+}
+
+export default function TrackingScripts() {
   return (
     <>
+      <Suspense fallback={null}>
+        <TrackingData />
+      </Suspense>
+
       {FB_PIXEL_ID && (
         <Script
           id="fb-pixel"

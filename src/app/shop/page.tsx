@@ -11,7 +11,9 @@ import { useSearchParams } from 'next/navigation';
 import ScrollReveal from '@/components/ScrollReveal';
 import { useLanguage } from '@/context/LanguageContext';
 
-export default function ShopPage() {
+import { Suspense } from 'react';
+
+function ShopContent() {
   const searchParams = useSearchParams();
   const category = searchParams.get('category') || '';
   const sort = searchParams.get('sort') || 'newest';
@@ -270,5 +272,17 @@ export default function ShopPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+        <div className="animate-spin w-12 h-12 border-4 border-accent border-t-transparent rounded-full" />
+      </div>
+    }>
+      <ShopContent />
+    </Suspense>
   );
 }

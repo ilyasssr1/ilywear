@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import WhatsAppFloating from "@/components/WhatsAppFloating";
 import TrackingScripts from "@/components/TrackingScripts";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
