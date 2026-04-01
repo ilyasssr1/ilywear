@@ -3,14 +3,20 @@ import type { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client for middleware (Edge friendly)
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 1. Define paths that should ALWAYS be accessible
+  // 1. If keys are missing (during build or misconfiguration), skip maintenance check
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return NextResponse.next();
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+  // 2. Define paths that should ALWAYS be accessible
   const isPublicAsset = pathname.startsWith('/_next') || 
                         pathname.startsWith('/api') || 
                         pathname.includes('.') || // static files like images/favicons
