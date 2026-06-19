@@ -41,7 +41,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        
+
         <div className="md:col-span-2">
           <h4 className="text-xl font-impact uppercase tracking-wider mb-6 text-white">{t('collections')}</h4>
           <ul className="space-y-4">
@@ -52,7 +52,7 @@ export default function Footer() {
             <li><Link href="/shop" className={`text-gray-400 hover:text-white transition-all text-sm font-medium inline-block ${isRTL ? 'hover:-translate-x-1' : 'hover:translate-x-1'}`}>{t('exclusive_drops')}</Link></li>
           </ul>
         </div>
-        
+
         <div className="md:col-span-2">
           <h4 className="text-xl font-impact uppercase tracking-wider mb-6 text-white">{t('support')}</h4>
           <ul className="space-y-4">
@@ -63,7 +63,7 @@ export default function Footer() {
             <li><Link href="/account" className={`text-gray-400 hover:text-white transition-all text-sm font-medium inline-block ${isRTL ? 'hover:-translate-x-1' : 'hover:translate-x-1'}`}>{t('my_account')}</Link></li>
           </ul>
         </div>
-        
+
         <div className="md:col-span-2">
           <h4 className="text-xl font-impact uppercase tracking-wider mb-6 text-white">Légal</h4>
           <ul className="space-y-4">
@@ -72,7 +72,7 @@ export default function Footer() {
             <li><Link href="/returns" className={`text-gray-400 hover:text-white transition-all text-sm font-medium inline-block ${isRTL ? 'hover:-translate-x-1' : 'hover:translate-x-1'}`}>Retours & Échanges</Link></li>
           </ul>
         </div>
-        
+
         <div className="md:col-span-3 bg-[#111111] p-8 rounded-[2rem] border border-[#333] shadow-xl relative overflow-hidden flex flex-col justify-center">
           <div className="relative z-10 text-center md:text-left">
             <h4 className="text-3xl font-impact uppercase tracking-wider mb-2 text-white italic">{t('newsletter_title')}</h4>
@@ -80,29 +80,34 @@ export default function Footer() {
               {t('newsletter_desc')}
             </p>
             <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
-               <div className="relative">
-                 <input 
-                  type="email" 
+              <div className="relative">
+                <input
+                  type="email"
                   placeholder={t('email_placeholder')}
                   className="w-full bg-black border border-[#222] rounded-xl py-4 px-6 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all placeholder:text-gray-600"
                 />
-               </div>
-               <button className="w-full bg-accent text-secondary py-4 font-impact text-xl uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(204,255,0,0.1)]">
-                 {t('subscribe')}
-               </button>
+              </div>
+              <button className="w-full bg-accent text-secondary py-4 font-impact text-xl uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(204,255,0,0.1)]">
+                {t('subscribe')}
+              </button>
             </form>
           </div>
           {/* Decorative element */}
           <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-accent/5 rounded-full blur-3xl" />
         </div>
       </div>
-      
+
       <div className={`container mx-auto px-6 border-t border-[#333] pt-12 flex flex-col md:flex-row justify-between items-center gap-6`}>
-        <p className={`text-gray-500 text-xs font-impact uppercase tracking-widest text-center ${isRTL ? 'md:text-right' : 'md:text-left'}`}>
-          &copy; {new Date().getFullYear()} IlyWear. {t('redefining_moroccan')}
-        </p>
+        <div className={`flex flex-col ${isRTL ? 'items-center md:items-end' : 'items-center md:items-start'} gap-2`}>
+          <p className={`text-gray-500 text-xs font-impact uppercase tracking-widest text-center ${isRTL ? 'md:text-right' : 'md:text-left'}`}>
+            &copy; {new Date().getFullYear()} IlyWear. {t('redefining_moroccan')}
+          </p>
+          <span className="text-accent text-[10px] font-impact uppercase tracking-[0.2em] animate-pulse">
+            {t('developed_by')}
+          </span>
+        </div>
         <div className="flex gap-8 justify-center">
-           <span className="text-gray-600 text-xs font-impact uppercase tracking-widest">{t('designed_for_morocco')}</span>
+          <span className="text-gray-600 text-xs font-impact uppercase tracking-widest">{t('designed_for_morocco')}</span>
         </div>
       </div>
     </footer>

@@ -296,6 +296,7 @@ export const translations = {
     redefining_moroccan: "Redefining Moroccan Style.",
     designed_for_morocco: "Designed for Morocco",
     boys_style: "Boys' Style",
+    developed_by: "Developed by Ilyass Sroubi",
 
     // 404 Page
     page_not_found: "Page Not Found",
@@ -613,6 +614,7 @@ export const translations = {
     redefining_moroccan: "إعادة تعريف الأسلوب المغربي.",
     designed_for_morocco: "مصمم للمغرب",
     boys_style: "أناقة الأطفال",
+    developed_by: "تطوير إلياس سروبي",
 
     // 404 Page
     page_not_found: "الصفحة غير موجودة",
@@ -931,6 +933,7 @@ export const translations = {
     redefining_moroccan: "Redéfinir le Style Marocain.",
     designed_for_morocco: "Conçu pour le Maroc",
     boys_style: "Style Garçons",
+    developed_by: "Développé par Ilyass Sroubi",
 
     // 404 Page
     page_not_found: "Page Introuvable",
