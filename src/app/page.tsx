@@ -37,7 +37,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative h-[90vh] min-h-[700px] w-full bg-black flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-             <Image
+            <Image
               src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80"
               alt="Fashion Hero Background"
               fill
@@ -46,7 +46,7 @@ export default function Home() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
           </div>
-          
+
           <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
             <div className="inline-block mb-6 px-5 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] animate-fade-in animate-glow">
               {t('new_collection')}
@@ -59,21 +59,21 @@ export default function Home() {
               {t('hero_subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
-              <Link 
-                href="/shop" 
+              <Link
+                href="/shop"
                 className="bg-accent hover:bg-white text-secondary hover:text-secondary px-10 py-5 font-impact text-2xl uppercase tracking-wider transition-all duration-500 transform hover:scale-105 flex items-center justify-center glow-effect"
               >
                 {t('shop_collection')}
               </Link>
-              <Link 
-                href="/shop?category=promotions" 
+              <Link
+                href="/shop?category=promotions"
                 className="bg-transparent hover:bg-white/10 backdrop-blur-md text-white border border-white/30 px-10 py-5 font-impact text-2xl uppercase tracking-wider transition-all duration-500 transform hover:scale-105 flex items-center justify-center"
               >
                 {t('view_offers')}
               </Link>
             </div>
           </div>
-          
+
           {/* Scroll Indicator */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce cursor-pointer">
             <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent" />
@@ -115,11 +115,11 @@ export default function Home() {
                 <h2 className="text-6xl font-impact uppercase text-white">{t('shop_by_category')}</h2>
               </div>
             </ScrollReveal>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {/* Women Category */}
               <ScrollReveal delay={100}>
-                <Link href="/shop?category=women" className="group relative h-[500px] overflow-hidden rounded-[2.5rem] flex items-end p-10 shadow-2xl block">
+                <Link href="/shop?category=women" className="group relative h-[500px] overflow-hidden rounded-[2.5rem] flex items-end p-10 shadow-2xl">
                   <Image
                     src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80"
                     alt="Women Collection"
@@ -141,7 +141,7 @@ export default function Home() {
 
               {/* Men Category */}
               <ScrollReveal delay={200}>
-                <Link href="/shop?category=men" className="group relative h-[500px] overflow-hidden rounded-[2.5rem] flex items-end p-10 shadow-2xl block">
+                <Link href="/shop?category=men" className="group relative h-[500px] overflow-hidden rounded-[2.5rem] flex items-end p-10 shadow-2xl">
                   <Image
                     src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=800&q=80"
                     alt="Men Collection"
@@ -163,9 +163,9 @@ export default function Home() {
 
               {/* Boys Category */}
               <ScrollReveal delay={300}>
-                <Link href="/shop?category=boys" className="group relative h-[500px] overflow-hidden rounded-[2.5rem] flex items-end p-10 shadow-2xl block">
+                <Link href="/shop?category=boys" className="group relative h-[500px] overflow-hidden rounded-[2.5rem] flex items-end p-10 shadow-2xl">
                   <Image
-                    src="https://images.unsplash.com/photo-1519457431-758c4abb627f?w=800&q=80"
+                    src="/images/boys-category.png"
                     alt="Boys Collection"
                     fill
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -203,46 +203,6 @@ export default function Home() {
           </div>
         </section>
 
-
-        {/* Community Section */}
-        <section className="py-24 bg-secondary overflow-hidden">
-          <div className="container mx-auto px-6">
-            <ScrollReveal>
-              <div className="flex flex-col items-center mb-16 text-center">
-                <span className="text-accent text-sm font-impact uppercase tracking-widest mb-4">#IlyWearStyle</span>
-                <h2 className="text-6xl font-impact uppercase text-white leading-[0.9] max-w-2xl">
-                  {t('community_title')} <br />{t('community_subtitle')}
-                </h2>
-              </div>
-            </ScrollReveal>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {[
-                "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80",
-                "https://images.unsplash.com/photo-1529139513402-f20a02ad475e?w=500&q=80",
-                "https://images.unsplash.com/photo-1539109132314-347551cd9913?w=500&q=80",
-                "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=500&q=80",
-                "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500&q=80",
-                "https://images.unsplash.com/photo-1537824598504-48d0aba493df?w=500&q=80"
-              ].map((img, i) => (
-                <ScrollReveal key={i} delay={i * 80}>
-                  <div className={`relative aspect-square overflow-hidden rounded-2xl md:rounded-3xl group ${i % 2 !== 0 ? 'md:translate-y-6' : ''}`}>
-                    <Image
-                      src={img}
-                      alt={`Style lookup ${i}`}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <Instagram className="text-white w-6 h-6" />
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Promo Section */}
         <section className="py-32 relative overflow-hidden bg-black flex items-center justify-center border-y border-accent">
           <div className="absolute inset-0 opacity-20">
@@ -260,8 +220,8 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-gray-300 mb-12 text-balance leading-relaxed font-sans">
               {t('promo_subtitle')}
             </p>
-            <Link 
-              href="/shop?category=promotions" 
+            <Link
+              href="/shop?category=promotions"
               className="bg-accent text-secondary hover:bg-white hover:text-secondary px-12 py-5 font-impact text-2xl uppercase tracking-wider transition-all duration-500 glow-effect flex items-center gap-4"
             >
               {t('shop_the_sale')}
