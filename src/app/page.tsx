@@ -41,21 +41,18 @@ export default function Home() {
               src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80"
               alt="Fashion Hero Background"
               fill
-              className="object-cover object-center opacity-70 scale-105 animate-pulse-slow"
+              className="object-cover object-center opacity-45 scale-105 animate-pulse-slow"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80" />
           </div>
 
           <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
-            <div className="inline-block mb-6 px-5 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] animate-fade-in animate-glow">
-              {t('new_collection')}
-            </div>
             <h1 className="text-6xl sm:text-7xl lg:text-9xl font-impact tracking-normal text-white mb-8 uppercase leading-[0.8] animate-slide-up">
               {t('hero_title_1')} <br />
               <span className="text-accent">{t('hero_title_2')}</span> {t('hero_title_3')}
             </h1>
-            <p className="text-lg sm:text-2xl text-gray-400 mb-12 max-w-2xl text-balance font-sans leading-relaxed animate-fade-in delay-200">
+            <p className="text-lg sm:text-2xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] font-semibold mb-12 max-w-2xl text-balance font-sans leading-relaxed animate-fade-in delay-200">
               {t('hero_subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in delay-300">
